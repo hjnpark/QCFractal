@@ -13,7 +13,10 @@ class OptimizationDatasetEntryORM(BaseORM):
     __tablename__ = "optimization_dataset_entries"
 
     dataset_id = Column(Integer, ForeignKey("optimization_dataset.id", ondelete="cascade"), primary_key=True)
+
     name = Column(String, primary_key=True)
+    comment = Column(String)
+
     initial_molecule_id = Column(Integer, ForeignKey(MoleculeORM.id), nullable=False)
     additional_keywords = Column(JSONB, nullable=True)
     attributes = Column(JSONB, nullable=True)
@@ -30,7 +33,7 @@ class OptimizationDatasetSpecificationORM(BaseORM):
 
     dataset_id = Column(Integer, ForeignKey("optimization_dataset.id", ondelete="cascade"), primary_key=True)
     name = Column(String, primary_key=True)
-    comment = Column(String, nullable=True)
+    description = Column(String, nullable=True)
     specification_id = Column(Integer, ForeignKey(OptimizationSpecificationORM.id), nullable=False)
 
     specification = relationship(OptimizationSpecificationORM, uselist=False)
