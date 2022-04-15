@@ -223,17 +223,20 @@ class RecordSocket:
         from .optimization.sockets import OptimizationRecordSocket
         from .torsiondrive.sockets import TorsiondriveRecordSocket
         from .gridoptimization.sockets import GridoptimizationRecordSocket
+        from .neb.sockets import NEBRecordSocket
 
         self.singlepoint = SinglepointRecordSocket(root_socket)
         self.optimization = OptimizationRecordSocket(root_socket)
         self.torsiondrive = TorsiondriveRecordSocket(root_socket)
         self.gridoptimization = GridoptimizationRecordSocket(root_socket)
+        self.neb = NEBRecordSocket(root_socket)
 
         self._handler_map: Dict[str, BaseRecordSocket] = {
             "singlepoint": self.singlepoint,
             "optimization": self.optimization,
             "torsiondrive": self.torsiondrive,
             "gridoptimization": self.gridoptimization,
+            "neb": self.neb,
         }
 
         self._handler_map_by_schema: Dict[str, BaseRecordSocket] = {

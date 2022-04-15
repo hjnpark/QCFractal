@@ -35,7 +35,7 @@ if __name__ == "__main__":
             "bcrypt",
             "sqlalchemy >=1.4",
             "alembic",
-            "psycopg2",
+            "psycopg2-binary",
             "qcelemental>=0.24",
             "qcengine>=0.21",
             "torsiondrive",
