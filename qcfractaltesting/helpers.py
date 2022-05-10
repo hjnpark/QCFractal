@@ -24,6 +24,7 @@ from qcportal.records.optimization import OptimizationSpecification
 from qcportal.records.reaction import ReactionSpecification
 from qcportal.records.singlepoint import QCSpecification
 from qcportal.records.torsiondrive import TorsiondriveSpecification
+from qcportal.records.neb import NEBSpecification
 from qcportal.serialization import _json_decode
 
 if TYPE_CHECKING:
@@ -145,6 +146,10 @@ def load_record_data(name: str):
         input_type = ManybodySpecification
         result_type = Dict[str, Union[AtomicResult, FailedOperation]]
         molecule_type = Molecule
+    elif record_type == "neb":
+        input_type = NEBSpecification
+        result_type = Dict[str, Union[AtomicResult, FailedOperation]]
+        molecule_type = List[Molecule]       
     else:
         raise RuntimeError(f"Unknown procedure '{record_type}' in test!")
 
