@@ -296,7 +296,7 @@ class PortalClientBase:
         Returns
         -------
         :
-            True if the server is up an responded to the ping. False otherwise
+            True if the server is up and responded to the ping. False otherwise
         """
 
         uri = f"{self.address}/v1/ping"

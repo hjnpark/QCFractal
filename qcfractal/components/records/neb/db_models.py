@@ -20,6 +20,7 @@ class NEBOptimiationsORM(BaseORM):
     neb_id = Column(Integer, ForeignKey("neb_record.id", ondelete="cascade"), primary_key=True)
     optimization_id = Column(Integer, ForeignKey(OptimizationRecordORM.id), primary_key=True)
     position = Column(Integer, primary_key=True)
+    ts = Column(Integer, primary_key=True)
     optimization_record = relationship(OptimizationRecordORM)
 
     def model_dict(self, exclude: Optional[Iterable[str]] = None) -> Dict[str, Any]:

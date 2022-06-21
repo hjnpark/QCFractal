@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, Extra, root_validator, constr, validator
 from typing_extensions import Literal
 
 from ..models import BaseRecord, RecordAddBodyBase, RecordQueryFilters
+from ..optimization import OptimizationRecord
 from ..singlepoint.models import QCSpecification, SinglepointRecord, SinglepointDriver, SinglepointProtocols
 from ...base_models import ProjURLParameters
 from ...molecules import Molecule
@@ -26,11 +27,15 @@ class NEBKeywords(BaseModel):
         0.1,
         description="Spring constant in eV/Ang^2.",
     )
-        
 
     energy_weighted: bool = Field(
         False,
         description="Energy weighted NEB method varies the spring constant based on the image's energy.",
+    )
+
+    optimize_ts: bool = Field(
+        False,
+        description="Setting it equal to true will perform a transition sate optimization starting with the guessed transition state structure from the NEB calculation."
     )
 
     @root_validator
@@ -55,6 +60,14 @@ class NEBSpecification(BaseModel):
         v["protocols"] = SinglepointProtocols()
         return v
 
+class NEBOptimization(BaseModel):
+    class config:
+        extra = Extra.forbid
+
+    optimization_id: int
+    position: int
+    ts: int
+    optimization_record: Optional[OptimizationRecord._DataModel]
 
 
 class NEBSinglepoint(BaseModel):
@@ -64,8 +77,6 @@ class NEBSinglepoint(BaseModel):
     singlepoint_id: int
     chain_iteration: int
     position: int
-
-    #gradients: Optional[List[float]] = None
     singlepoint_record: Optional[SinglepointRecord._DataModel]
 
 
@@ -110,8 +121,8 @@ class NEBRecord(BaseRecord):
     # This is needed for disambiguation by pydantic
     record_type: Literal["neb"] = 'neb'
     raw_data: _DataModel
-
     singlepoint_cache: Optional[Dict[str, SinglepointRecord]] = None
+
     @staticmethod
     def transform_includes(includes: Optional[Iterable[str]]) -> Optional[Set[str]]:
         if includes is None:
@@ -172,16 +183,16 @@ class NEBRecord(BaseRecord):
         ret = {}
         for sp in self.raw_data.singlepoints:
             ret.setdefault(sp.chain_iteration, list())
-            ret[sp.chain_iteration].append(sp.singlepoint_record.properties)
+            ret[sp.chain_iteration].append(SinglepointRecord.from_datamodel(sp.singlepoint_record, self.client))
         self.singlepoint_cache = ret
         return ret
 
     @property
-    def final_ts(self):
+    def neb_result(self):
         url_params = {}
         r = self.client._auto_request(
             "get",
-            f"v1/records/neb/{self.raw_data.id}/final_ts",
+            f"v1/records/neb/{self.raw_data.id}/neb_result",
             None,
             ProjURLParameters,
             Molecule,

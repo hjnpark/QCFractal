@@ -3,22 +3,20 @@ Tests the general record socket
 """
 from __future__ import annotations
 
-import random
-from datetime import datetime
 from typing import TYPE_CHECKING
 
-import pytest
+from qcelemental.models import FailedOperation, ComputeError
 
+from qcfractal.components.records.optimization.testing_helpers import load_test_data as load_opt_test_data
+from qcfractal.components.records.singlepoint.testing_helpers import load_test_data as load_sp_test_data
 from qcfractal.testing_helpers import mname1
-from qcfractaltesting import load_record_data
-from qcportal.exceptions import MissingDataError
-from qcportal.records import PriorityEnum, RecordStatusEnum, RecordQueryFilters
+from qcportal.records import PriorityEnum, RecordStatusEnum
 
 if TYPE_CHECKING:
     from qcfractal.db_socket import SQLAlchemySocket
 
 
-def populate_db(storage_socket: SQLAlchemySocket):
+def populate_records_status(storage_socket: SQLAlchemySocket):
     """
     Populates the db with tasks in all statuses
     """
@@ -32,18 +30,18 @@ def populate_db(storage_socket: SQLAlchemySocket):
         tags=["tag1", "tag2", "tag3", "tag6"],
     )
 
-    input_spec_0, molecule_0, result_data_0 = load_record_data("psi4_methane_opt_sometraj")
-    input_spec_1, molecule_1, result_data_1 = load_record_data("psi4_water_gradient")
-    input_spec_2, molecule_2, result_data_2 = load_record_data("psi4_water_hessian")
-    input_spec_3, molecule_3, result_data_3 = load_record_data("psi4_methane_gradient_fail_iter")
-    input_spec_4, molecule_4, result_data_4 = load_record_data("rdkit_water_energy")
-    input_spec_5, molecule_5, result_data_5 = load_record_data("psi4_benzene_energy_2")
-    input_spec_6, molecule_6, result_data_6 = load_record_data("psi4_water_energy")
+    input_spec_0, molecule_0, result_data_0 = load_opt_test_data("psi4_methane_opt_sometraj")
+    input_spec_1, molecule_1, result_data_1 = load_sp_test_data("psi4_water_gradient")
+    input_spec_2, molecule_2, result_data_2 = load_sp_test_data("psi4_water_hessian")
+    input_spec_3, molecule_3, result_data_3 = load_opt_test_data("psi4_benzene_opt")
+    input_spec_4, molecule_4, result_data_4 = load_sp_test_data("rdkit_water_energy")
+    input_spec_5, molecule_5, result_data_5 = load_sp_test_data("psi4_benzene_energy_2")
+    input_spec_6, molecule_6, result_data_6 = load_sp_test_data("psi4_water_energy")
 
     meta, id_0 = storage_socket.records.optimization.add([molecule_0], input_spec_0, "tag0", PriorityEnum.normal)
     meta, id_1 = storage_socket.records.singlepoint.add([molecule_1], input_spec_1, "tag1", PriorityEnum.high)
     meta, id_2 = storage_socket.records.singlepoint.add([molecule_2], input_spec_2, "tag2", PriorityEnum.high)
-    meta, id_3 = storage_socket.records.singlepoint.add([molecule_3], input_spec_3, "tag3", PriorityEnum.high)
+    meta, id_3 = storage_socket.records.optimization.add([molecule_3], input_spec_3, "tag3", PriorityEnum.high)
     meta, id_4 = storage_socket.records.singlepoint.add([molecule_4], input_spec_4, "tag4", PriorityEnum.normal)
     meta, id_5 = storage_socket.records.singlepoint.add([molecule_5], input_spec_5, "tag5", PriorityEnum.normal)
     meta, id_6 = storage_socket.records.singlepoint.add([molecule_6], input_spec_6, "tag6", PriorityEnum.normal)
@@ -58,13 +56,15 @@ def populate_db(storage_socket: SQLAlchemySocket):
     tasks = storage_socket.tasks.claim_tasks(mname1.fullname, limit=4)
     assert len(tasks) == 4
 
+    fop = FailedOperation(error=ComputeError(error_type="test_error", error_message="this is a test error"))
+
     # we don't send back the one we want to be 'running' still (#2)
     storage_socket.tasks.update_finished(
         mname1.fullname,
         {
             # tasks[1] is left running (corresponds to record 2)
             tasks[0]["id"]: result_data_1,
-            tasks[2]["id"]: result_data_3,
+            tasks[2]["id"]: fop,
             tasks[3]["id"]: result_data_6,
         },
     )
@@ -77,12 +77,7 @@ def populate_db(storage_socket: SQLAlchemySocket):
         assert len(tasks) == 1
         assert tasks[0]["tag"] == "tag3"
 
-        storage_socket.tasks.update_finished(
-            mname1.fullname,
-            {
-                tasks[0]["id"]: result_data_3,
-            },
-        )
+        storage_socket.tasks.update_finished(mname1.fullname, {tasks[0]["id"]: fop})
 
     meta = storage_socket.records.cancel(id_4)
     assert meta.n_updated == 1
@@ -101,11 +96,3 @@ def populate_db(storage_socket: SQLAlchemySocket):
     assert rec[6]["status"] == RecordStatusEnum.invalid
 
     return all_id
-
-
-def test_record_socket_get_proj(storage_socket: SQLAlchemySocket):
-    all_id = populate_db(storage_socket)
-
-    r = storage_socket.records.get(all_id, include={"id", "status"})
-    assert all_id == [x["id"] for x in r]
-    assert all(set(x.keys()) == {"id", "status", "record_type"} for x in r)

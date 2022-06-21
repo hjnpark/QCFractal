@@ -428,13 +428,13 @@ class RecordSocket:
         if query_data.status is not None:
             and_query.append(orm_type.status.in_(query_data.status))
         if query_data.created_before is not None:
-            and_query.append(orm_type.created_on < query_data.created_before)
+            and_query.append(orm_type.created_on <= query_data.created_before)
         if query_data.created_after is not None:
-            and_query.append(orm_type.created_on > query_data.created_after)
+            and_query.append(orm_type.created_on >= query_data.created_after)
         if query_data.modified_before is not None:
-            and_query.append(orm_type.modified_on < query_data.modified_before)
+            and_query.append(orm_type.modified_on <= query_data.modified_before)
         if query_data.modified_after is not None:
-            and_query.append(orm_type.modified_on > query_data.modified_after)
+            and_query.append(orm_type.modified_on >= query_data.modified_after)
 
         if query_data.parent_id is not None:
             # We alias the cte because we might join on it twice
@@ -460,12 +460,23 @@ class RecordSocket:
         with self.root_socket.optional_session(session, True) as session:
             stmt = stmt.where(*and_query)
             stmt = stmt.options(*proj_options)
-            n_found = get_count(session, stmt)
-            stmt = stmt.limit(query_data.limit).offset(query_data.skip)
+
+            if query_data.include_metadata:
+                n_found = get_count(session, stmt)
+
+            if query_data.cursor is not None:
+                stmt = stmt.where(orm_type.id < query_data.cursor)
+
+            stmt = stmt.order_by(orm_type.id.desc())
+            stmt = stmt.limit(query_data.limit)
             results = session.execute(stmt).scalars().unique().all()
             result_dicts = [x.model_dict() for x in results]
 
-        meta = QueryMetadata(n_found=n_found)
+        if query_data.include_metadata:
+            meta = QueryMetadata(n_found=n_found)
+        else:
+            meta = None
+
         return meta, result_dicts
 
     def query(
