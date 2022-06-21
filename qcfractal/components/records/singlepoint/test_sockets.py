@@ -6,8 +6,6 @@ from typing import TYPE_CHECKING
 import pytest
 from qcelemental.models.results import AtomicResultProperties
 
-from qcfractal.components.records.singlepoint.db_models import SinglepointRecordORM
-from qcfractal.components.records.singlepoint.testing_helpers import test_specs
 from qcfractal.components.wavefunctions.test_db_models import assert_wfn_equal
 from qcfractaltesting import load_molecule_data
 from qcportal.compression import decompress_string
@@ -15,13 +13,10 @@ from qcportal.managers import ManagerName
 from qcportal.molecules import Molecule
 from qcportal.outputstore import OutputStore
 from qcportal.records import RecordStatusEnum, PriorityEnum
-from qcportal.records.singlepoint import (
-    QCSpecification,
-    SinglepointDriver,
-    SinglepointProtocols,
-)
+from qcportal.records.singlepoint import QCSpecification, SinglepointDriver, SinglepointProtocols
 from qcportal.wavefunctions.models import WavefunctionProperties
-from .testing_helpers import load_test_data
+from .db_models import SinglepointRecordORM
+from .testing_helpers import test_specs, load_test_data
 
 if TYPE_CHECKING:
     from qcfractal.db_socket import SQLAlchemySocket
@@ -199,10 +194,10 @@ def test_singlepoint_socket_add_same_5(storage_socket: SQLAlchemySocket):
 
 
 def test_singlepoint_socket_run(storage_socket: SQLAlchemySocket, activated_manager_name: ManagerName):
-    input_spec_1, molecule_1, result_data_1 = load_test_data("psi4_benzene_energy_1")
-    input_spec_2, molecule_2, result_data_2 = load_test_data("psi4_peroxide_energy_wfn")
-    input_spec_3, molecule_3, result_data_3 = load_test_data("rdkit_water_energy")
-    input_spec_4, molecule_4, result_data_4 = load_test_data("psi4_h2_b3lyp_nativefiles")
+    input_spec_1, molecule_1, result_data_1 = load_test_data("sp_psi4_benzene_energy_1")
+    input_spec_2, molecule_2, result_data_2 = load_test_data("sp_psi4_peroxide_energy_wfn")
+    input_spec_3, molecule_3, result_data_3 = load_test_data("sp_rdkit_water_energy")
+    input_spec_4, molecule_4, result_data_4 = load_test_data("sp_psi4_h2_b3lyp_nativefiles")
 
     meta1, id1 = storage_socket.records.singlepoint.add(
         [molecule_1], input_spec_1, tag="*", priority=PriorityEnum.normal
@@ -301,7 +296,7 @@ def test_singlepoint_socket_run(storage_socket: SQLAlchemySocket, activated_mana
 
 
 def test_singlepoint_socket_insert(storage_socket: SQLAlchemySocket):
-    input_spec_2, molecule_2, result_data_2 = load_test_data("psi4_peroxide_energy_wfn")
+    input_spec_2, molecule_2, result_data_2 = load_test_data("sp_psi4_peroxide_energy_wfn")
 
     meta2, id2 = storage_socket.records.singlepoint.add(
         [molecule_2], input_spec_2, tag="*", priority=PriorityEnum.normal

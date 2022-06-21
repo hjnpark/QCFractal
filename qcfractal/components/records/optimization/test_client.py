@@ -7,7 +7,6 @@ import pytest
 
 from qcfractal.db_socket import SQLAlchemySocket
 from qcfractaltesting import load_molecule_data
-from qcportal.managers import ManagerName
 from qcportal.records import RecordStatusEnum, PriorityEnum
 from qcportal.records.optimization import (
     OptimizationSpecification,
@@ -17,6 +16,7 @@ from qcportal.records.singlepoint import QCSpecification
 if TYPE_CHECKING:
     from qcfractal.db_socket import SQLAlchemySocket
     from qcportal import PortalClient
+    from qcportal.managers import ManagerName
 
 from qcfractal.components.records.optimization.testing_helpers import (
     compare_optimization_specs,
@@ -120,7 +120,7 @@ def test_optimization_client_add_existing_molecule(snowflake_client: PortalClien
     assert recs[2].raw_data.initial_molecule_id == mol_ids[0]
 
 
-@pytest.mark.parametrize("opt_file", ["psi4_benzene_opt", "psi4_fluoroethane_opt_notraj"])
+@pytest.mark.parametrize("opt_file", ["opt_psi4_benzene", "opt_psi4_fluoroethane_notraj"])
 def test_optimization_client_delete(
     snowflake_client: PortalClient, storage_socket: SQLAlchemySocket, activated_manager_name: ManagerName, opt_file: str
 ):
@@ -128,6 +128,17 @@ def test_optimization_client_delete(
 
     rec = storage_socket.records.optimization.get([opt_id], include=["trajectory"])
     child_ids = [x["singlepoint_id"] for x in rec[0]["trajectory"]]
+
+    meta = snowflake_client.delete_records(opt_id, soft_delete=True, delete_children=False)
+    assert meta.success
+    assert meta.deleted_idx == [0]
+    assert meta.n_children_deleted == 0
+
+    child_recs = snowflake_client.get_records(child_ids, missing_ok=True)
+    assert all(x.status == RecordStatusEnum.complete for x in child_recs)
+
+    # Undo what we just did
+    snowflake_client.undelete_records(opt_id)
 
     meta = snowflake_client.delete_records(opt_id, soft_delete=True, delete_children=True)
     assert meta.success
@@ -148,8 +159,32 @@ def test_optimization_client_delete(
     child_recs = snowflake_client.get_records(child_ids, missing_ok=True)
     assert all(x is None for x in child_recs)
 
+    # DB should be pretty empty now
+    query_res = snowflake_client.query_records()
+    assert query_res.current_meta.n_found == 0
 
-@pytest.mark.parametrize("opt_file", ["psi4_benzene_opt", "psi4_methane_opt_sometraj"])
+
+def test_optimization_client_harddelete_nochildren(
+    snowflake_client: PortalClient, storage_socket: SQLAlchemySocket, activated_manager_name: ManagerName
+):
+    opt_id = run_test_data(storage_socket, activated_manager_name, "opt_psi4_benzene")
+
+    rec = storage_socket.records.optimization.get([opt_id], include=["trajectory"])
+    child_ids = [x["singlepoint_id"] for x in rec[0]["trajectory"]]
+
+    meta = snowflake_client.delete_records(opt_id, soft_delete=False, delete_children=False)
+    assert meta.success
+    assert meta.deleted_idx == [0]
+    assert meta.n_children_deleted == 0
+
+    recs = snowflake_client.get_optimizations(opt_id, missing_ok=True)
+    assert recs is None
+
+    child_recs = snowflake_client.get_records(child_ids, missing_ok=True)
+    assert all(x is not None for x in child_recs)
+
+
+@pytest.mark.parametrize("opt_file", ["opt_psi4_benzene", "opt_psi4_methane_sometraj"])
 def test_optimization_client_delete_traj_inuse(
     snowflake_client: PortalClient, storage_socket: SQLAlchemySocket, activated_manager_name: ManagerName, opt_file: str
 ):
@@ -167,9 +202,9 @@ def test_optimization_client_delete_traj_inuse(
 
 
 def test_optimization_client_query(snowflake_client: PortalClient, storage_socket: SQLAlchemySocket):
-    id_1, _ = submit_test_data(storage_socket, "psi4_fluoroethane_opt_notraj")
-    id_2, _ = submit_test_data(storage_socket, "psi4_benzene_opt")
-    id_3, _ = submit_test_data(storage_socket, "psi4_methane_opt_sometraj")
+    id_1, _ = submit_test_data(storage_socket, "opt_psi4_fluoroethane_notraj")
+    id_2, _ = submit_test_data(storage_socket, "opt_psi4_benzene")
+    id_3, _ = submit_test_data(storage_socket, "opt_psi4_methane_sometraj")
 
     recs = snowflake_client.get_optimizations([id_1, id_2, id_3])
 

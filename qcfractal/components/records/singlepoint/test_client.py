@@ -8,21 +8,12 @@ import pytest
 from qcfractaltesting import load_molecule_data
 from qcportal.managers import ManagerName
 from qcportal.records import PriorityEnum
-from qcportal.records.singlepoint import (
-    QCSpecification,
-    SinglepointDriver,
-)
+from qcportal.records.singlepoint import QCSpecification, SinglepointDriver
+from .testing_helpers import submit_test_data, run_test_data, compare_singlepoint_specs, test_specs
 
 if TYPE_CHECKING:
     from qcfractal.db_socket import SQLAlchemySocket
     from qcportal import PortalClient
-
-from qcfractal.components.records.singlepoint.testing_helpers import (
-    submit_test_data,
-    run_test_data,
-    compare_singlepoint_specs,
-    test_specs,
-)
 
 
 @pytest.mark.parametrize("tag", ["*", "tag99"])
@@ -111,7 +102,7 @@ def test_singlepoint_client_add_existing_molecule(snowflake_client: PortalClient
 def test_singlepoint_client_delete(
     snowflake_client: PortalClient, storage_socket: SQLAlchemySocket, activated_manager_name: ManagerName
 ):
-    sp_id = run_test_data(storage_socket, activated_manager_name, "psi4_peroxide_energy_wfn")
+    sp_id = run_test_data(storage_socket, activated_manager_name, "sp_psi4_peroxide_energy_wfn")
 
     # deleting with children is ok (even though we don't have children)
     meta = snowflake_client.delete_records(sp_id, soft_delete=True, delete_children=True)
@@ -127,9 +118,9 @@ def test_singlepoint_client_delete(
 
 
 def test_singlepoint_client_query(snowflake_client: PortalClient, storage_socket: SQLAlchemySocket):
-    id_1, _ = submit_test_data(storage_socket, "psi4_benzene_energy_1")
-    id_2, _ = submit_test_data(storage_socket, "psi4_peroxide_energy_wfn")
-    id_3, _ = submit_test_data(storage_socket, "rdkit_water_energy")
+    id_1, _ = submit_test_data(storage_socket, "sp_psi4_benzene_energy_1")
+    id_2, _ = submit_test_data(storage_socket, "sp_psi4_peroxide_energy_wfn")
+    id_3, _ = submit_test_data(storage_socket, "sp_rdkit_water_energy")
 
     recs = storage_socket.records.singlepoint.get([id_1, id_2, id_3])
 
