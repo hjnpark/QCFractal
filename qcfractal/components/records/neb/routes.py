@@ -37,8 +37,17 @@ def get_neb_singlepoints_v1(record_id: int, *, url_params: ProjURLParameters):
 
 @main.route("/v1/records/neb/<int:record_id>/neb_result", methods=["GET"])
 @wrap_route("READ")
-def get_neb_final_ts_v1(record_id: int, url_params: ProjURLParameters):
+def get_neb_result_v1(record_id: int, url_params: ProjURLParameters):
     return storage_socket.records.neb.get_neb_result(record_id, url_params.include, url_params.exclude)
+
+
+@main.route("/v1/records/neb/<int:record_id>/optimizations", methods=["GET"])
+@wrap_route("READ")
+def get_neb_optimizations_v1(record_id: int, url_params: ProjURLParameters):
+    # adjust the includes/excludes to refer to the optimizations
+    ch_includes, ch_excludes = prefix_projection(url_params, "optimizations")
+    rec = storage_socket.records.neb.get([record_id], include=ch_includes, exclude=ch_excludes)
+    return rec[0]["optimizations"]
 
 
 @main.route("/v1/records/neb/<int:record_id>/initial_chain", methods=["GET"])

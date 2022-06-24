@@ -30,12 +30,12 @@ class NEBKeywords(BaseModel):
 
     energy_weighted: bool = Field(
         False,
-        description="Energy weighted NEB method varies the spring constant based on the image's energy.",
+        description="Energy weighted NEB method varies the spring constant based on image's energy.",
     )
 
     optimize_ts: bool = Field(
         False,
-        description="Setting it equal to true will perform a transition sate optimization starting with the guessed transition state structure from the NEB calculation."
+        description="Setting it equal to true will perform a transition sate optimization starting with the guessed transition state structure from the NEB calculation result."
     )
 
     @root_validator
@@ -66,7 +66,7 @@ class NEBOptimization(BaseModel):
 
     optimization_id: int
     position: int
-    ts: int
+    ts: bool
     optimization_record: Optional[OptimizationRecord._DataModel]
 
 
@@ -117,6 +117,9 @@ class NEBRecord(BaseRecord):
         specification: NEBSpecification
         initial_chain: Optional[List[Molecule]] = None
         singlepoints: Optional[List[NEBSinglepoint]] = None
+        optimizations: Optional[List[NEBOptimization]] = None
+
+        optimizations_cache: Optional[Dict[str, OptimizationRecord]] = None
 
     # This is needed for disambiguation by pydantic
     record_type: Literal["neb"] = 'neb'
@@ -136,6 +139,41 @@ class NEBRecord(BaseRecord):
             ret |= {"singlepoints.*", "singlepoints.singlepoint_record"}
 
         return ret
+
+    def _make_caches(self):
+        if self.raw_data.optimizations is None:
+            return
+
+        if self.raw_data.optimizations_cache is None:
+            # convert the raw optimization data to a dictionary of key -> List[OptimizationRecord]
+            opt_map = {}
+            for opt in self.raw_data.optimizations:
+                opt_rec =OptimizationRecord.from_datamodel(opt.optimization_record, self.client)
+                if opt.ts:
+                    opt_map['transition'] = opt_rec#OptimizationRecord.from_datamodel(opt.optimization_record, self.client)
+                elif opt.position == 0:
+                    opt_map['initial'] = opt_rec#OptimizationRecord.from_datamodel(opt.optimization_record, self.client)
+                else:
+                    opt_map['final'] = opt_rec#OptimizationRecord.from_datamodel(opt.optimization_record, self.client)
+
+            self.raw_data.optimizations_cache = opt_map
+
+    def _fetch_optimizations(self):
+        self._assert_online()
+
+        url_params = {"include": ["*", "optimization_record"]}
+
+        self.raw_data.optimizations = self.client._auto_request(
+            "get",
+            f"v1/records/neb/{self.raw_data.id}/optimizations",
+            None,
+            ProjURLParameters,
+            List[NEBOptimization],
+            None,
+            url_params,
+        )
+
+        self._make_caches()
 
     def _fetch_initial_chain(self):
         self.raw_data.initial_chain = self.client._auto_request(
@@ -160,6 +198,7 @@ class NEBRecord(BaseRecord):
             None,
             url_params,
         )
+
 
     @property
     def specification(self) -> NEBSpecification:
@@ -201,3 +240,12 @@ class NEBRecord(BaseRecord):
         )
 
         return r
+
+    @property
+    def ts_optimization(self) -> OptimizationRecord:
+        self._make_caches()
+
+        if self.raw_data.optimizations_cache is None:
+            self._fetch_optimizations()
+
+        return self.raw_data.optimizations_cache.get('transition', None)

@@ -38,6 +38,7 @@ from .db_models import (
     NEBInitialchainORM,
     NEBRecordORM,
 )
+from ..optimization.db_models import OptimizationRecordORM
 from ...molecules.db_models import MoleculeORM
 
 if TYPE_CHECKING:
@@ -207,29 +208,35 @@ class NEBRecordSocket(BaseRecordSocket):
                 self.submit_singlepoints(session, service_state, service_orm, next_chain)
                 finished = False
             else:
-                service_state.converged = True
-                if service_state.tsoptimize:
-                    output += "\nOptimizing the guessed transition state structure to locate a first-order saddle point."
-                    stmt = (select(MoleculeORM)
-                            .join(SinglepointRecordORM)
-                            .join(NEBSinglepointsORM)
-                            .where(NEBSinglepointsORM.neb_id == neb_orm.id)
-                            .order_by(NEBSinglepointsORM.chain_iteration.desc(),
-                                      SinglepointRecordORM.properties["return_energy"].cast(TEXT).cast(
-                                          DOUBLE_PRECISION).desc())
-                            .limit(1)
-                            )
+                if service_state.converged:
+                    if service_state.tsoptimize:
+                        output += "\nOptimizing the guessed transition state structure to locate a first-order saddle point."
 
-                    with self.root_socket.optional_session(session, True) as session:
-                        TS_mol = session.execute(stmt).scalar_one_or_none()
-                        if TS_mol is None:
-                            raise MissingDataError("MoleculeOR of a guessed transition state from NEB can't be found.")
-                    self.submit_optimizations(session, service_orm, [Molecule(**TS_mol.model_dict())])
-                    service_state.tsoptimize = False
-                    finished = False
+                        stmt = (select(MoleculeORM)
+                                .join(SinglepointRecordORM)
+                                .join(NEBSinglepointsORM)
+                                .where(NEBSinglepointsORM.neb_id == neb_orm.id)
+                                .order_by(NEBSinglepointsORM.chain_iteration.desc(),
+                                          SinglepointRecordORM.properties["return_energy"].cast(TEXT).cast(
+                                              DOUBLE_PRECISION).desc())
+                                .limit(1)
+                                )
+
+                        with self.root_socket.optional_session(session, True) as session:
+                            TS_mol = session.execute(stmt).scalar_one_or_none()
+                            if TS_mol is None:
+                                raise MissingDataError(
+                                    "MoleculeORM of a guessed transition state from NEB can't be found.")
+                        self.submit_optimizations(session, service_orm, [Molecule(**TS_mol.model_dict())])
+                        service_state.tsoptimize = False
+                        finished = False
+                    else:
+                        output += "\nNEB calculation is completed with %i iterations" % service_state.iteration
+                        finished = True
                 else:
-                    output += "\nNEB calculation is completed with %i iterations" %service_state.iteration
-                    finished = True
+                    service_state.converged=True
+                    finished = False
+
         stdout_orm = neb_orm.compute_history[-1].get_output(OutputTypeEnum.stdout)
         stdout_orm.append(output)
         service_orm.service_state = service_state.dict()
@@ -248,19 +255,20 @@ class NEBRecordSocket(BaseRecordSocket):
         service_orm.dependencies = []
         service_state = NEBServiceState(**service_orm.service_state)
         qc_spec = neb_orm.specification.singlepoint_specification.model_dict()
-        if service_state.converged:
+        if service_state.tsoptimize and service_state.converged:
             opt_spec = OptimizationSpecification(
                 program="geometric",
                 qc_specification=QCSpecification(**qc_spec),
                 keywords={'transition':True},
             )
-            ts = 1
+            ts = True
         else:
             opt_spec = OptimizationSpecification(
                 program="geometric",
                 qc_specification=QCSpecification(**qc_spec),
             )
-            ts = 0
+
+            ts = False
         meta, opt_ids = self.root_socket.records.optimization.add(
             molecules,
             opt_spec,
@@ -276,8 +284,8 @@ class NEBRecordSocket(BaseRecordSocket):
                 neb_id=service_orm.record_id,
                 optimization_id=opt_id,
                 position=pos,
-                ts=ts)
-
+                ts=ts,
+            )
             service_orm.dependencies.append(svc_dep)
             neb_orm.optimizations.append(opt_history)
 
@@ -585,3 +593,32 @@ class NEBRecordSocket(BaseRecordSocket):
             if r is None:
                 raise MissingDataError("A guessed transition state from the NEB can't be found")
             return r.model_dict()
+
+    #def get_final_ts(
+    #    self,
+    #    neb_id: int,
+    #    include: Optional[Sequence[str]] = None,
+    #    exclude: Optional[Sequence[str]] = None,
+    #    *,
+    #    session: Optional[Session] = None,
+
+    #) -> Dict[str, Any]:
+
+    #    query_rec = get_query_proj_options(OptimizationRecordORM, include, exclude)
+
+    #    stmt = (select(OptimizationRecordORM)
+    #    .options(*query_rec)
+    #    .join(NEBOptimiationsORM)
+    #    .where(NEBOptimiationsORM.neb_id == neb_id)
+    #    .order_by(NEBOptimiationsORM.optimization_id.desc())
+    #    #.where(NEBOptimiationsORM.ts == 1)
+    #    .limit(1)
+    #    )
+
+    #    with self.root_socket.optional_session(session, True) as session:
+    #        r = session.execute(stmt).scalar_one_or_none()
+    #        if r is None:
+    #            raise MissingDataError("The final optimized transition state from the NEB can't be found")
+    #        print(r.model_dict())
+    #        return r.model_dict()
+            #return {x: y.model_dict() for x, y in r}
