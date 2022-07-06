@@ -341,7 +341,7 @@ class PortalClient(PortalClientBase):
         name: str,
         description: Optional[str] = None,
         tagline: Optional[str] = None,
-        tags: Optional[Dict[str, Any]] = None,
+        tags: Optional[List[str]] = None,
         group: Optional[str] = None,
         provenance: Optional[Dict[str, Any]] = None,
         visibility: bool = True,
@@ -349,6 +349,19 @@ class PortalClient(PortalClientBase):
         default_priority: PriorityEnum = PriorityEnum.normal,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> BaseDataset:
+
+        if description is None:
+            description = ""
+        if tagline is None:
+            tagline = ""
+        if tags is None:
+            tags = []
+        if group is None:
+            group = "default"
+        if provenance is None:
+            provenance = {}
+        if metadata is None:
+            metadata = {}
 
         payload = DatasetAddBody(
             name=name,
@@ -579,7 +592,7 @@ class PortalClient(PortalClientBase):
         missing_ok: bool = False,
         *,
         include: Optional[Iterable[str]] = None,
-    ) -> Union[List[BaseRecord], Optional[BaseRecord]]:
+    ) -> Union[List[Optional[BaseRecord]], Optional[BaseRecord]]:
         """
         Obtain records of all types with specified IDs
 

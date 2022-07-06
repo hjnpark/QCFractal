@@ -1,8 +1,9 @@
-from typing import Dict, Any, Union, Optional, List, Iterable, Tuple, Set
+from typing import Dict, Any, Union, Optional, List, Iterable, Tuple
 
 from pydantic import BaseModel
 from typing_extensions import Literal
 
+from qcportal.metadata_models import InsertMetadata
 from qcportal.molecules import Molecule
 from qcportal.records.reaction import ReactionRecord, ReactionSpecification
 from qcportal.utils import make_list
@@ -12,22 +13,20 @@ from ..models import BaseDataset
 class ReactionDatasetNewEntry(BaseModel):
     name: str
     comment: Optional[str] = None
-    stoichiometry: List[Tuple[float, Union[int, Molecule]]]
+    stoichiometries: List[Tuple[float, Union[int, Molecule]]]
     additional_keywords: Dict[str, Any] = {}
     attributes: Dict[str, Any] = {}
 
 
 class ReactionDatasetEntryStoichiometry(BaseModel):
-    molecule_id: int
     coefficient: float
-
-    molecule: Optional[Molecule] = None
+    molecule: Molecule
 
 
 class ReactionDatasetEntry(BaseModel):
     name: str
     comment: Optional[str] = None
-    stoichiometry: List[ReactionDatasetEntryStoichiometry]
+    stoichiometries: List[ReactionDatasetEntryStoichiometry]
     additional_keywords: Optional[Dict[str, Any]] = {}
     attributes: Optional[Dict[str, Any]] = {}
 
@@ -65,50 +64,38 @@ class ReactionDataset(BaseDataset):
     _record_item_type = ReactionDatasetRecordItem
     _record_type = ReactionRecord
 
-    @staticmethod
-    def transform_entry_includes(includes: Optional[Iterable[str]]) -> Optional[Set[str]]:
-        """
-        Transforms user-friendly includes into includes used by the web API
-        """
-
-        if includes is None:
-            return None
-
-        ret = BaseDataset.transform_entry_includes(includes)
-
-        if "molecule" in includes:
-            ret |= {"stoichiometry.*", "stoichiometry.molecule"}
-
-        return ret
-
-    def add_specification(self, name: str, specification: ReactionSpecification, description: Optional[str] = None):
+    def add_specification(
+        self, name: str, specification: ReactionSpecification, description: Optional[str] = None
+    ) -> InsertMetadata:
 
         payload = ReactionDatasetSpecification(name=name, specification=specification, description=description)
 
-        self.client._auto_request(
+        ret = self.client._auto_request(
             "post",
             f"v1/datasets/reaction/{self.id}/specifications",
             List[ReactionDatasetSpecification],
             None,
-            None,
+            InsertMetadata,
             [payload],
             None,
         )
 
         self._post_add_specification(name)
+        return ret
 
-    def add_entries(self, entries: Union[ReactionDatasetEntry, Iterable[ReactionDatasetNewEntry]]):
+    def add_entries(self, entries: Union[ReactionDatasetEntry, Iterable[ReactionDatasetNewEntry]]) -> InsertMetadata:
 
         entries = make_list(entries)
-        self.client._auto_request(
+        ret = self.client._auto_request(
             "post",
             f"v1/datasets/reaction/{self.id}/entries/bulkCreate",
             List[ReactionDatasetNewEntry],
             None,
-            None,
+            InsertMetadata,
             make_list(entries),
             None,
         )
 
         new_names = [x.name for x in entries]
         self._post_add_entries(new_names)
+        return ret

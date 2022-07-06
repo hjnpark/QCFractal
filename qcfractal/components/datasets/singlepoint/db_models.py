@@ -31,7 +31,7 @@ class SinglepointDatasetEntryORM(BaseORM):
 
     local_results = Column(JSON)
 
-    molecule = relationship(MoleculeORM)
+    molecule = relationship(MoleculeORM, lazy="joined")
 
     __table_args__ = (
         Index("ix_singlepoint_dataset_entry_dataset_id", "dataset_id"),
@@ -41,7 +41,7 @@ class SinglepointDatasetEntryORM(BaseORM):
 
     def model_dict(self, exclude: Optional[Iterable[str]] = None) -> Dict[str, Any]:
         # Remove fields not present in the model
-        exclude = self.append_exclude(exclude, "dataset_id")
+        exclude = self.append_exclude(exclude, "dataset_id", "molecule_id")
         return BaseORM.model_dict(self, exclude)
 
 

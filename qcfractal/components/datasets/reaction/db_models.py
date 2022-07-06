@@ -1,11 +1,18 @@
-from sqlalchemy import Column, Integer, ForeignKey, String, Index, ForeignKeyConstraint, UniqueConstraint
-from sqlalchemy.dialects.postgresql import JSONB, DOUBLE_PRECISION
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from sqlalchemy import Column, Integer, ForeignKey, String, ForeignKeyConstraint, UniqueConstraint, Index
+from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION, JSONB
 from sqlalchemy.orm import relationship
 
 from qcfractal.components.datasets.db_models import BaseDatasetORM
 from qcfractal.components.molecules.db_models import MoleculeORM
 from qcfractal.components.records.reaction.db_models import ReactionRecordORM, ReactionSpecificationORM
 from qcfractal.db_socket import BaseORM
+
+if TYPE_CHECKING:
+    from typing import Dict, Any, Optional, Iterable
 
 
 class ReactionDatasetStoichiometryORM(BaseORM):
@@ -17,7 +24,7 @@ class ReactionDatasetStoichiometryORM(BaseORM):
     molecule_id = Column(Integer, ForeignKey("molecule.id"), primary_key=True)
     coefficient = Column(DOUBLE_PRECISION, nullable=False)
 
-    molecule = relationship(MoleculeORM)
+    molecule = relationship(MoleculeORM, lazy="joined")
 
     __table_args__ = (
         Index("ix_reaction_dataset_stoichiometry_dataset_id", "dataset_id"),
@@ -31,6 +38,11 @@ class ReactionDatasetStoichiometryORM(BaseORM):
         ),
     )
 
+    def model_dict(self, exclude: Optional[Iterable[str]] = None) -> Dict[str, Any]:
+        # Remove fields not present in the model
+        exclude = self.append_exclude(exclude, "dataset_id", "molecule_id")
+        return BaseORM.model_dict(self, exclude)
+
 
 class ReactionDatasetEntryORM(BaseORM):
     __tablename__ = "reaction_dataset_entry"
@@ -43,7 +55,7 @@ class ReactionDatasetEntryORM(BaseORM):
     additional_keywords = Column(JSONB, nullable=True)
     attributes = Column(JSONB, nullable=False)
 
-    stoichiometry = relationship(ReactionDatasetStoichiometryORM, lazy="selectin")
+    stoichiometries = relationship(ReactionDatasetStoichiometryORM, lazy="selectin")
 
     __table_args__ = (
         Index("ix_reaction_dataset_entry_dataset_id", "dataset_id"),

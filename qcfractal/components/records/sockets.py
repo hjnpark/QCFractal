@@ -161,7 +161,7 @@ class BaseRecordSocket:
             Remove these fields from the return. Default is to return all fields.
         missing_ok
            If set to True, then missing results will be tolerated, and the returned list of
-           Molecules will contain None for the corresponding IDs that were not found.
+           records will contain None for the corresponding IDs that were not found.
         session
             An existing SQLAlchemy session to use. If None, one will be created. If an existing session
             is used, it will be flushed (but not committed) before returning from this function.
@@ -541,7 +541,7 @@ class RecordSocket:
             Remove these fields from the return. Default is to return all fields.
         missing_ok
            If set to True, then missing results will be tolerated, and the returned list of
-           Molecules will contain None for the corresponding IDs that were not found.
+           records will contain None for the corresponding IDs that were not found.
         session
             An existing SQLAlchemy session to use. If None, one will be created. If an existing session
             is used, it will be flushed (but not committed) before returning from this function.
@@ -1324,11 +1324,34 @@ class RecordSocket:
         comment: Optional[str] = None,
         *,
         session: Optional[Session] = None,
-    ):
+    ) -> UpdateMetadata:
         """
         Modify multiple things about a record at once
 
         This function allows for changing the status, tag, priority, and comment in a single function call
+
+        Parameters
+        ----------
+        record_ids
+            IDs of the records to modify
+        username
+            Username of the user modifying the records
+        status
+            New status for the records. Only certain status transitions will be allowed.
+        priority
+            New priority for these records
+        tag
+            New tag for these records
+        comment
+            Adds a new comment to these records
+        session
+            An existing SQLAlchemy session to use. If None, one will be created. If an existing session
+            is used, it will be flushed before returning from this function.
+
+        Returns
+        -------
+        :
+            Metadata about the modification/update.
         """
 
         if len(record_ids) == 0:
@@ -1338,16 +1361,16 @@ class RecordSocket:
         with self.root_socket.optional_session(session) as session:
             if status is not None:
                 if status == RecordStatusEnum.waiting:
-                    return self.root_socket.records.reset(record_ids=record_ids, session=session)
+                    ret = self.root_socket.records.reset(record_ids=record_ids, session=session)
                 if status == RecordStatusEnum.cancelled:
-                    return self.root_socket.records.cancel(record_ids=record_ids, session=session)
+                    ret = self.root_socket.records.cancel(record_ids=record_ids, session=session)
                 if status == RecordStatusEnum.invalid:
-                    return self.root_socket.records.invalidate(record_ids=record_ids, session=session)
+                    ret = self.root_socket.records.invalidate(record_ids=record_ids, session=session)
 
                 # ignore all other statuses
 
             if tag is not None or priority is not None:
-                return self.root_socket.records.modify(
+                ret = self.root_socket.records.modify(
                     record_ids,
                     new_tag=tag,
                     new_priority=priority,
@@ -1355,14 +1378,18 @@ class RecordSocket:
                 )
 
             if comment:
-                return self.root_socket.records.add_comment(
+                ret = self.root_socket.records.add_comment(
                     record_ids=record_ids,
                     username=username,
                     comment=comment,
                     session=session,
                 )
 
-    def revert_generic(self, record_id: Sequence[int], revert_status: RecordStatusEnum):
+            return ret
+
+        return UpdateMetadata()
+
+    def revert_generic(self, record_id: Sequence[int], revert_status: RecordStatusEnum) -> UpdateMetadata:
         """
         Reverts the status of a record to the previous status
 

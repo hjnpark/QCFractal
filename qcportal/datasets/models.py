@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Optional, Dict, Any, List, Iterable, Type, Tuple, Union, Callable, Set
+from typing import Optional, Dict, Any, List, Iterable, Type, Tuple, Union, Callable
 
 import pandas as pd
 import pydantic
@@ -9,6 +9,7 @@ from pydantic import BaseModel, Extra, validator
 from qcelemental.models.types import Array
 
 from qcportal.base_models import RestModelBase, validate_list_to_single
+from qcportal.metadata_models import UpdateMetadata, DeleteMetadata
 from qcportal.records import AllRecordTypes, PriorityEnum, RecordStatusEnum, record_from_datamodel
 from qcportal.utils import make_list
 
@@ -61,18 +62,18 @@ class BaseDataset(BaseModel):
         id: int
         dataset_type: str
         name: str
-        description: Optional[str]
-        tagline: Optional[str]
-        tags: Optional[List[str]]
-        group: Optional[str]
+        description: str
+        tagline: str
+        tags: List[str]
+        group: str
         visibility: bool
-        provenance: Optional[Dict[str, Any]]
+        provenance: Dict[str, Any]
 
         default_tag: str
         default_priority: PriorityEnum
 
-        metadata: Optional[Dict[str, Any]] = None
-        extras: Optional[Dict[str, Any]] = None
+        metadata: Dict[str, Any]
+        extras: Dict[str, Any]
 
         ########################################
         # Info about entries, specs, and records
@@ -108,19 +109,6 @@ class BaseDataset(BaseModel):
 
         return cls(client=client, raw_data=raw_data, dataset_type=raw_data.dataset_type)
 
-    @staticmethod
-    def transform_entry_includes(includes: Optional[Iterable[str]]) -> Optional[Set[str]]:
-        """
-        Transforms user-friendly includes into includes used by the web API
-        """
-
-        if includes is None:
-            return None
-
-        ret: Set[str] = {"*"}
-
-        return ret
-
     def _post_add_entries(self, entry_names) -> None:
         """
         Perform some actions after entries have been added to the remote server
@@ -146,21 +134,23 @@ class BaseDataset(BaseModel):
         # Ignoring the function argument for now... Just get all specs
         self.fetch_specifications()
 
-    def _update_metadata(self):
-        new_body = DatasetModifyMetadata(
-            name=self.raw_data.name,
-            description=self.raw_data.description,
-            tagline=self.raw_data.tagline,
-            tags=self.raw_data.tags,
-            group=self.raw_data.group,
-            visibility=self.raw_data.visibility,
-            provenance=self.raw_data.provenance,
-            default_tag=self.raw_data.default_tag,
-            default_priority=self.raw_data.default_priority,
-            metadata=self.metadata,
-        )
-
+    def _update_metadata(self, **kwargs):
         self.assert_online()
+
+        new_body = {
+            "name": self.raw_data.name,
+            "description": self.raw_data.description,
+            "tagline": self.raw_data.tagline,
+            "tags": self.raw_data.tags,
+            "group": self.raw_data.group,
+            "visibility": self.raw_data.visibility,
+            "provenance": self.raw_data.provenance,
+            "default_tag": self.raw_data.default_tag,
+            "default_priority": self.raw_data.default_priority,
+            "metadata": self.raw_data.metadata,
+        }
+
+        new_body.update(**kwargs)
 
         self.client._auto_request(
             "patch",
@@ -171,6 +161,8 @@ class BaseDataset(BaseModel):
             new_body,
             None,
         )
+
+        self.raw_data = self.raw_data.copy(update=new_body)
 
     def submit(
         self,
@@ -241,56 +233,70 @@ class BaseDataset(BaseModel):
         return self.raw_data.name
 
     def set_name(self, new_name: str):
-        old_name = self.raw_data.name
-        self.raw_data.name = new_name
-        try:
-            self._update_metadata()
-        except:
-            self.raw_data.name = old_name
-            raise
+        self._update_metadata(name=new_name)
 
     @property
     def description(self) -> str:
         return self.raw_data.description
 
-    def set_description(self, new_description: Optional[str]):
-        self.assert_online()
-
-        old_description = self.raw_data.description
-        self.raw_data.description = new_description
-        try:
-            self._update_metadata()
-        except:
-            self.raw_data.old_description = old_description
-            raise
+    def set_description(self, new_description: str):
+        self._update_metadata(description=new_description)
 
     @property
-    def group(self) -> Optional[str]:
+    def visibility(self) -> bool:
+        return self.raw_data.visibility
+
+    def set_visibility(self, new_visibility: bool):
+        self._update_metadata(visibility=new_visibility)
+
+    @property
+    def group(self) -> str:
         return self.raw_data.group
 
+    def set_group(self, new_group: str):
+        self._update_metadata(group=new_group)
+
     @property
-    def tags(self) -> Optional[List[str]]:
+    def tags(self) -> List[str]:
         return self.raw_data.tags
 
+    def set_tags(self, new_tags: List[str]):
+        self._update_metadata(tags=new_tags)
+
     @property
-    def tagline(self) -> Optional[str]:
+    def tagline(self) -> str:
         return self.raw_data.tagline
 
-    @property
-    def provenance(self) -> Optional[Dict[str, Any]]:
-        return self.raw_data.provenance
+    def set_tagline(self, new_tagline: str):
+        self._update_metadata(tagline=new_tagline)
 
     @property
-    def metadata(self) -> Optional[Dict[str, Any]]:
+    def provenance(self) -> Dict[str, Any]:
+        return self.raw_data.provenance
+
+    def set_provenance(self, new_provenance: Dict[str, Any]):
+        self._update_metadata(provenance=new_provenance)
+
+    @property
+    def metadata(self) -> Dict[str, Any]:
         return self.raw_data.metadata
+
+    def set_metadata(self, new_metadata: Dict[str, Any]):
+        self._update_metadata(metadata=new_metadata)
 
     @property
     def default_tag(self) -> Optional[str]:
         return self.raw_data.default_tag
 
+    def set_default_tag(self, new_default_tag: str):
+        self._update_metadata(default_tag=new_default_tag)
+
     @property
     def default_priority(self) -> PriorityEnum:
         return self.raw_data.default_priority
+
+    def set_default_priority(self, new_default_priority: PriorityEnum):
+        self._update_metadata(default_priority=new_default_priority)
 
     @property
     def specifications(self) -> Optional[Dict[str, Any]]:
@@ -321,7 +327,7 @@ class BaseDataset(BaseModel):
             None,
         )
 
-    def rename_specification(self, old_name: str, new_name: str) -> None:
+    def rename_specification(self, old_name: str, new_name: str) -> UpdateMetadata:
         self.assert_online()
 
         name_map = {old_name: new_name}
@@ -341,17 +347,17 @@ class BaseDataset(BaseModel):
         # Renames the specifications in the record map
         self.raw_data.record_map = {(e, name_map.get(s, s)): r for (e, s), r in self.raw_data.record_map.items()}
 
-    def delete_specification(self, name: str, delete_records: bool = False) -> None:
+    def delete_specification(self, name: str, delete_records: bool = False) -> DeleteMetadata:
         self.assert_online()
 
         body_data = DatasetDeleteStrBody(names=[name], delete_records=delete_records)
 
-        self.client._auto_request(
+        ret = self.client._auto_request(
             "post",
             f"v1/datasets/{self.dataset_type}/{self.id}/specifications/bulkDelete",
             DatasetDeleteStrBody,
             None,
-            None,
+            DeleteMetadata,
             body_data,
             None,
         )
@@ -359,6 +365,8 @@ class BaseDataset(BaseModel):
         # Delete locally-cached stuff
         self.raw_data.specifications.pop(name, None)
         self.raw_data.record_map = {(e, s): r for (e, s), r in self.raw_data.record_map.items() if s != name}
+
+        return ret
 
     ###################################
     # Entries
@@ -385,7 +393,6 @@ class BaseDataset(BaseModel):
     def _internal_fetch_entries(
         self,
         entry_names: Iterable[str],
-        api_include: Optional[Iterable[str]],
     ) -> None:
         """
         Fetches entry information from the remote server, storing it internally
@@ -407,7 +414,7 @@ class BaseDataset(BaseModel):
         if not entry_names:
             return
 
-        body_data = DatasetFetchEntryBody(names=entry_names, include=api_include)
+        body_data = DatasetFetchEntryBody(names=entry_names)
 
         fetched_entries = self.client._auto_request(
             "post",
@@ -424,7 +431,6 @@ class BaseDataset(BaseModel):
     def fetch_entries(
         self,
         entry_names: Optional[Union[str, Iterable[str]]] = None,
-        include: Optional[Iterable[str]] = None,
         force_refetch: bool = False,
     ) -> None:
         """
@@ -446,8 +452,6 @@ class BaseDataset(BaseModel):
         if self.offline:
             return
 
-        api_include = self.transform_entry_includes(include)
-
         # Reload entry names if we are forcing refetching
         if force_refetch:
             self.fetch_entry_names()
@@ -467,12 +471,11 @@ class BaseDataset(BaseModel):
 
         for start_idx in range(0, n_entries, fetch_limit):
             entries_batch = entry_names[start_idx : start_idx + fetch_limit]
-            self._internal_fetch_entries(entries_batch, api_include)
+            self._internal_fetch_entries(entries_batch)
 
     def get_entry(
         self,
         entry_name: str,
-        include: Optional[Iterable[str]] = None,
         force_refetch: bool = False,
     ) -> Optional[Any]:
         """
@@ -481,13 +484,12 @@ class BaseDataset(BaseModel):
         The entry will be automatically fetched from the remote server if needed.
         """
 
-        self.fetch_entries(entry_name, include=include, force_refetch=force_refetch)
+        self.fetch_entries(entry_name, force_refetch=force_refetch)
         return self.raw_data.entries.get(entry_name, None)
 
     def iterate_entries(
         self,
         entry_names: Optional[Union[str, Iterable[str]]] = None,
-        include: Optional[Iterable[str]] = None,
         force_refetch: bool = False,
     ):
         """
@@ -499,8 +501,6 @@ class BaseDataset(BaseModel):
         ----------
         entry_names
             Names of entries to iterate over. If None, iterate over all entries
-        include
-            Additional fields/data to include when fetching the entry
         force_refetch
             If true, fetch data from the server even if it already exists locally
         """
@@ -509,8 +509,6 @@ class BaseDataset(BaseModel):
         # We duplicate a little bit of fetch_entries here, since
         # we want to yield in the middle
         #########################################################
-
-        api_include = self.transform_entry_includes(include)
 
         # Reload entry names if we are forcing refetching
         if force_refetch:
@@ -538,7 +536,7 @@ class BaseDataset(BaseModel):
             else:
                 names_tofetch = [x for x in names_batch if x not in self.raw_data.entries]
 
-            self._internal_fetch_entries(names_tofetch, api_include)
+            self._internal_fetch_entries(names_tofetch)
 
             # Loop over the whole batch (not just what we fetched)
             for entry_name in names_batch:
@@ -554,8 +552,8 @@ class BaseDataset(BaseModel):
 
         return self.raw_data.entry_names
 
-    def rename_entries(self, name_map: Dict[str, str]) -> None:
-        self.client._auto_request(
+    def rename_entries(self, name_map: Dict[str, str]):
+        ret = self.client._auto_request(
             "patch",
             f"v1/datasets/{self.dataset_type}/{self.id}/entries",
             Dict[str, str],
@@ -573,7 +571,7 @@ class BaseDataset(BaseModel):
         # Renames the entries in the record map
         self.raw_data.record_map = {(name_map.get(e, e), s): r for (e, s), r in self.raw_data.record_map.items()}
 
-    def delete_entries(self, names: Union[str, Iterable[str]], delete_records: bool = False):
+    def delete_entries(self, names: Union[str, Iterable[str]], delete_records: bool = False) -> DeleteMetadata:
         self.assert_online()
 
         names = make_list(names)
@@ -584,7 +582,7 @@ class BaseDataset(BaseModel):
             f"v1/datasets/{self.dataset_type}/{self.id}/entries/bulkDelete",
             DatasetDeleteStrBody,
             None,
-            None,
+            DeleteMetadata,
             body_data,
             None,
         )
@@ -877,15 +875,15 @@ class BaseDataset(BaseModel):
                     if status is None or rec.status in status:
                         yield entry_name, spec_name, rec
 
-    def delete_records(
+    def remove_records(
         self,
         entry_names: Optional[Union[str, Iterable[str]]] = None,
         specification_names: Optional[Union[str, Iterable[str]]] = None,
         delete_records: bool = False,
-    ):
+    ) -> DeleteMetadata:
         self.assert_online()
 
-        body_data = DatasetDeleteRecordsBody(
+        body_data = DatasetRemoveRecordsBody(
             entry_names=make_list(entry_names),
             specification_names=make_list(specification_names),
             delete_records=delete_records,
@@ -894,12 +892,19 @@ class BaseDataset(BaseModel):
         ret = self.client._auto_request(
             "post",
             f"v1/datasets/{self.dataset_type}/{self.id}/records/bulkDelete",
-            DatasetDeleteRecordsBody,
+            DatasetRemoveRecordsBody,
             None,
             None,
             body_data,
             None,
         )
+
+        # Delete locally-cached stuff
+        self.raw_data.record_map = {
+            (e, s): r
+            for (e, s), r in self.raw_data.record_map.items()
+            if e not in entry_names and s not in specification_names
+        }
 
         return ret
 
@@ -908,7 +913,7 @@ class BaseDataset(BaseModel):
         entry_names: Optional[Union[str, Iterable[str]]] = None,
         specification_names: Optional[Union[str, Iterable[str]]] = None,
         new_tag: Optional[str] = None,
-        new_priority: Optional[str] = None,
+        new_priority: Optional[PriorityEnum] = None,
         new_comment: Optional[str] = None,
         *,
         refetch_records: bool = False,
@@ -1141,23 +1146,23 @@ class BaseDataset(BaseModel):
 
 class DatasetAddBody(RestModelBase):
     name: str
-    description: Optional[str] = None
-    tagline: Optional[str] = None
-    tags: Optional[Dict[str, Any]] = None
-    group: Optional[str] = None
-    provenance: Optional[Dict[str, Any]]
-    visibility: bool = True
-    default_tag: Optional[str] = None
-    default_priority: PriorityEnum = PriorityEnum.normal
-    metadata: Optional[Dict[str, Any]] = None
+    description: str
+    tagline: str
+    tags: List[str]
+    group: str
+    provenance: Dict[str, Any]
+    visibility: bool
+    default_tag: str
+    default_priority: PriorityEnum
+    metadata: Dict[str, Any]
 
 
 class DatasetModifyMetadata(RestModelBase):
     name: str
-    description: Optional[str]
-    tags: Optional[List[str]]
-    tagline: Optional[str]
-    group: Optional[str]
+    description: str
+    tags: List[str]
+    tagline: str
+    group: str
     visibility: bool
     provenance: Optional[Dict[str, Any]]
     metadata: Optional[Dict[str, Any]]
@@ -1184,7 +1189,7 @@ class DatasetDeleteStrBody(RestModelBase):
     delete_records: bool = False
 
 
-class DatasetDeleteRecordsBody(RestModelBase):
+class DatasetRemoveRecordsBody(RestModelBase):
     entry_names: List[str]
     specification_names: List[str]
     delete_records: bool = False

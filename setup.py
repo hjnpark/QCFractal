@@ -24,7 +24,6 @@ if __name__ == "__main__":
         packages=setuptools.find_packages(),
         python_requires=">=3.7",
         install_requires=[
-            # Core dependencies
             "numpy",
             "msgpack",
             "flask",
@@ -33,18 +32,21 @@ if __name__ == "__main__":
             "pyyaml",
             "pydantic",
             "bcrypt",
-            "sqlalchemy >=1.4",
-            "alembic",
-            "psycopg2-binary",
-            "qcelemental>=0.24",
-            "qcengine>=0.21",
+            "qcelemental",
+            "qcengine",
             "torsiondrive",
             "tabulate",
-            # QCPortal dependencies
             "requests",
+
+            # QCPortal dependencies
             "tqdm",
-            "plotly",
             "pandas",
+
+            # Storage dependencies
+            "sqlalchemy >=1.4",
+            "alembic",
+            "psycopg2",
+
             # Only need for python 3.7, but no harm in always including it
             "typing-extensions",
         ],
@@ -65,9 +67,9 @@ if __name__ == "__main__":
                 "ipython",
             ],
             "lint": ["black"],
-            "tests": ["pytest", "pytest-cov", "codecov", "mypy", "geoip2"],
+            "tests": ["pytest", "pytest-cov", "codecov", "geoip2"],
         },
-        tests_require=["pytest", "pytest-cov", "codecov", "mypy"],
+        tests_require=["pytest", "pytest-cov", "codecov"],
         classifiers=[
             "Development Status :: 4 - Beta",
             "Intended Audience :: Science/Research",

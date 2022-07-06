@@ -1,8 +1,9 @@
-from typing import Dict, Any, Union, Optional, List, Iterable, Tuple, Set
+from typing import Dict, Any, Union, Optional, List, Iterable, Tuple
 
 from pydantic import BaseModel
 from typing_extensions import Literal
 
+from qcportal.metadata_models import InsertMetadata
 from qcportal.molecules import Molecule
 from qcportal.records.singlepoint import SinglepointRecord, QCSpecification
 from qcportal.utils import make_list
@@ -18,8 +19,7 @@ class SinglepointDatasetNewEntry(BaseModel):
 
 
 class SinglepointDatasetEntry(SinglepointDatasetNewEntry):
-    molecule_id: int
-    molecule: Optional[Molecule] = None
+    molecule: Molecule
     local_results: Optional[Dict[str, Any]] = None
 
 
@@ -56,50 +56,41 @@ class SinglepointDataset(BaseDataset):
     _record_item_type = SinglepointDatasetRecordItem
     _record_type = SinglepointRecord
 
-    @staticmethod
-    def transform_entry_includes(includes: Optional[Iterable[str]]) -> Optional[Set[str]]:
-        """
-        Transforms user-friendly includes into includes used by the web API
-        """
-
-        if includes is None:
-            return None
-
-        ret = BaseDataset.transform_entry_includes(includes)
-
-        if "molecule" in includes:
-            ret.add("molecule")
-
-        return ret
-
-    def add_specification(self, name: str, specification: QCSpecification, description: Optional[str] = None):
+    def add_specification(
+        self, name: str, specification: QCSpecification, description: Optional[str] = None
+    ) -> InsertMetadata:
 
         payload = SinglepointDatasetSpecification(name=name, specification=specification, description=description)
 
-        self.client._auto_request(
+        ret = self.client._auto_request(
             "post",
             f"v1/datasets/singlepoint/{self.id}/specifications",
             List[SinglepointDatasetSpecification],
             None,
-            None,
+            InsertMetadata,
             [payload],
             None,
         )
 
         self._post_add_specification(name)
+        return ret
 
-    def add_entries(self, entries: Union[SinglepointDatasetNewEntry, Iterable[SinglepointDatasetNewEntry]]):
+    def add_entries(
+        self, entries: Union[SinglepointDatasetNewEntry, Iterable[SinglepointDatasetNewEntry]]
+    ) -> InsertMetadata:
 
         entries = make_list(entries)
-        self.client._auto_request(
+        ret = self.client._auto_request(
             "post",
             f"v1/datasets/singlepoint/{self.id}/entries/bulkCreate",
             List[SinglepointDatasetNewEntry],
             None,
-            None,
+            InsertMetadata,
             entries,
             None,
         )
 
         new_names = [x.name for x in entries]
         self._post_add_entries(new_names)
+
+        return ret
