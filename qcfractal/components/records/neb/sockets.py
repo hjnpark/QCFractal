@@ -175,7 +175,13 @@ class NEBRecordSocket(BaseRecordSocket):
                 complete_opts = sorted(service_orm.dependencies, key=lambda x: x.extras["position"])
                 initial_molecules[0] = Molecule(**complete_opts[0].record.final_molecule.model_dict())
                 initial_molecules[-1] = Molecule(**complete_opts[-1].record.final_molecule.model_dict())
-                self.submit_singlepoints(session, service_state, service_orm, initial_molecules)
+                neb_stdout = io.StringIO()
+                logging.captureWarnings(True)
+                with contextlib.redirect_stdout(neb_stdout):
+                    aligned_chain = geometric.neb.arrange(initial_molecules)
+                logging.captureWarnings(False)
+                output += "\n" + neb_stdout.getvalue()
+                self.submit_singlepoints(session, service_state, service_orm, aligned_chain)
                 service_state.iteration += 1
                 finished = False
         else:
@@ -562,12 +568,8 @@ class NEBRecordSocket(BaseRecordSocket):
                         [],
                     )
                 selected_chain = np.array(init_chain)[np.array([int(round(i)) for i in np.linspace(0, len(init_chain)-1 ,images)])]
-                neb_stdout = io.StringIO()
-                logging.captureWarnings(True)
-                with contextlib.redirect_stdout(neb_stdout):
-                    aligned_chain = geometric.neb.arrange(selected_chain)
-                logging.captureWarnings(False)
-                mol_meta, molecule_ids = self.root_socket.molecules.add_mixed(aligned_chain, session=session)
+
+                mol_meta, molecule_ids = self.root_socket.molecules.add_mixed(selected_chain, session=session)
                 if not mol_meta.success:
                     return (
                         InsertMetadata(

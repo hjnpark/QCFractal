@@ -1,4 +1,4 @@
-from typing import Dict, Any, Union, Optional, List, Iterable, Set
+from typing import Dict, Any, Union, Optional, List, Iterable, Tuple
 
 from pydantic import BaseModel
 from typing_extensions import Literal
@@ -46,9 +46,9 @@ class NEBDataset(BaseDataset):
     class _DataModel(BaseDataset._DataModel):
         dataset_type: Literal["neb"] = "neb"
 
-        specifications: Optional[Dict[str, NEBDatasetSpecification]] = None
-        entries: Optional[Dict[str, NEBDatasetEntry]] = None
-        record_map: Optional[List[NEBRecord]] = None
+        specifications: Dict[str, NEBDatasetSpecification] = {}
+        entries: Dict[str, NEBDatasetEntry] = {}
+        record_map: Dict[Tuple[str,str],NEBRecord] = {}
 
     # This is needed for disambiguation by pydantic
     dataset_type: Literal["neb"] = "neb"
@@ -59,16 +59,6 @@ class NEBDataset(BaseDataset):
     _specification_type = NEBDatasetSpecification
     _record_item_type = NEBDatasetRecordItem
     _record_type = NEBRecord
-
-    #@staticmethod
-    #def transform_entry_includes(includes: Optional[Iterable[str]]) -> Optional[Set[str]]:
-    #    if includes is None:
-    #        return None
-
-    #    ret = BaseDataset.transform_entry_includes(includes)
-
-    #    ret |= {"initial_chain", "initial_chain.molecule"}
-    #    return ret
 
     def add_specification(
         self, name: str, specification: NEBSpecification, description: Optional[str] = None
