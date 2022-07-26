@@ -5,7 +5,7 @@ from typing import Dict, Optional, Iterable, Any
 from sqlalchemy import Column, Integer, ForeignKey, String, UniqueConstraint, Index, Boolean
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.orderinglist import ordering_list
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy.orm import relationship
 
 from qcfractal.components.molecules.db_models import MoleculeORM
 from qcfractal.components.records.db_models import BaseRecordORM
@@ -14,6 +14,9 @@ from qcfractal.components.records.optimization.db_models import OptimizationReco
 from qcfractal.db_socket import BaseORM
 
 class NEBOptimiationsORM(BaseORM):
+    """
+    Table for storing optimization calculations
+    """
 
     __tablename__ = "neb_optimizations"
 
@@ -27,7 +30,11 @@ class NEBOptimiationsORM(BaseORM):
         exclude = self.append_exclude(exclude, "neb_id")
         return BaseORM.model_dict(self, exclude)
 
+
 class NEBSinglepointsORM(BaseORM):
+    """
+    Table for storing singlepoint calculations
+    """
 
     __tablename__ = "neb_singlepoints"
 
@@ -42,7 +49,10 @@ class NEBSinglepointsORM(BaseORM):
         return BaseORM.model_dict(self, exclude)
   
 
-class NEBInitialchainORM(BaseORM):   
+class NEBInitialchainORM(BaseORM):
+    """
+    Table for stroing initial molecule inputs for NEB calculations
+    """
     
     __tablename__="neb_initialchain"
 
@@ -53,8 +63,12 @@ class NEBInitialchainORM(BaseORM):
     def model_dict(self, exclude: Optional[Iterable[str]]=None) -> Dict[str, Any]:
        exclude = self.append_exclude(exclude, "neb_id")
        return BaseORM.model_dict(self, exclude)   
- 
+
+
 class NEBSpecificationORM(BaseORM):
+    """
+    Table for storing NEB specifications
+    """
 
     __tablename__ = "neb_specification"
 
@@ -93,6 +107,9 @@ class NEBSpecificationORM(BaseORM):
 
 
 class NEBRecordORM(BaseRecordORM):
+    """
+    Table for storing NEB calculations
+    """
 
     __tablename__ = "neb_record"
 

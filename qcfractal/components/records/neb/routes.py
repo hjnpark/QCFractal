@@ -62,5 +62,4 @@ def get_neb_initial_chain_v1(record_id: int):
 def query_neb_v1(body_data: NEBQueryFilters):
     max_limit = current_app.config["QCFRACTAL_CONFIG"].api_limits.get_records
     body_data.limit = calculate_limit(max_limit, body_data.limit)
-
     return storage_socket.records.neb.query(body_data)

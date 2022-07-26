@@ -4,7 +4,6 @@ import contextlib
 import io
 import json
 import logging
-import time
 
 import numpy as np
 from typing import TYPE_CHECKING
@@ -14,7 +13,7 @@ import geometric
 import sqlalchemy.orm.attributes
 import tabulate
 from pydantic import BaseModel
-from sqlalchemy import select, func, or_
+from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert, array_agg, aggregate_order_by, DOUBLE_PRECISION, TEXT
 from sqlalchemy.orm import contains_eager
 
@@ -40,7 +39,6 @@ from .db_models import (
     NEBInitialchainORM,
     NEBRecordORM,
 )
-from ..optimization.db_models import OptimizationRecordORM
 from ...molecules.db_models import MoleculeORM
 
 if TYPE_CHECKING:
@@ -70,6 +68,7 @@ class NEBServiceState(BaseModel):
     optimized: bool
     tsoptimize: bool
     converged: bool
+    align: bool
     iteration: int
     molecule_template: str
 
@@ -77,6 +76,9 @@ class NEBServiceState(BaseModel):
 
 
 class NEBRecordSocket(BaseRecordSocket):
+    """
+    Socket for handling NEB computations
+    """
 
     # Used by the base class
     record_orm = NEBRecordORM
@@ -119,7 +121,6 @@ class NEBRecordSocket(BaseRecordSocket):
         molecule_template.pop("geometry", None)
         molecule_template.pop("identifiers", None)
         molecule_template.pop("id", None)
-        #elems = molecule_template.get("symbols")
 
         stdout_orm = neb_orm.compute_history[-1].get_output(OutputTypeEnum.stdout)
         stdout_orm.append(output)
@@ -136,6 +137,7 @@ class NEBRecordSocket(BaseRecordSocket):
             optimized=False,
             tsoptimize=keywords.get('optimize_ts'),
             converged=False,
+            align=keywords.get('align_chain'),
             molecule_template=molecule_template_str,
         )
 
@@ -148,7 +150,7 @@ class NEBRecordSocket(BaseRecordSocket):
         service_orm: ServiceQueueORM,
     ) -> bool:
         neb_orm: NEBRecordORM = service_orm.record
-        # Always update with the current provenance
+
         neb_orm.compute_history[-1].provenance = {
             "creator": "neb",
             "version": geometric.__version__,
@@ -164,8 +166,7 @@ class NEBRecordSocket(BaseRecordSocket):
         params['iteration'] = service_state.iteration
         output = ''
         if service_state.iteration==0:
-            initial_chain: List[Dict[str, Any]] = [x.model_dict() for x in neb_orm.initial_chain]
-            initial_molecules = [Molecule(**M) for M in initial_chain]
+            initial_molecules = [x.to_model(Molecule) for x in neb_orm.initial_chain]
             if not service_state.optimized:
                 output += "\nFirst, optimizing the end points"
                 self.submit_optimizations(session, service_orm, [initial_molecules[0], initial_molecules[-1]])
@@ -178,7 +179,7 @@ class NEBRecordSocket(BaseRecordSocket):
                 neb_stdout = io.StringIO()
                 logging.captureWarnings(True)
                 with contextlib.redirect_stdout(neb_stdout):
-                    aligned_chain = geometric.neb.arrange(initial_molecules)
+                    aligned_chain = geometric.neb.arrange(initial_molecules, service_state.align)
                 logging.captureWarnings(False)
                 output += "\n" + neb_stdout.getvalue()
                 self.submit_singlepoints(session, service_state, service_orm, aligned_chain)
@@ -191,7 +192,6 @@ class NEBRecordSocket(BaseRecordSocket):
                 energies = []
                 gradients = []
                 for task in complete_tasks:
-                    # This is an ORM for singlepoint calculations
                     sp_record = task.record
                     mol_data = self.root_socket.molecules.get(molecule_id=[sp_record.molecule_id], include=["geometry"], session=session)
                     geometries.append(mol_data[0]["geometry"])
@@ -260,7 +260,9 @@ class NEBRecordSocket(BaseRecordSocket):
         service_orm: ServiceQueueORM,
         molecules: List[Molecule],
     ):
-
+        """
+        Submit optimization calculations
+        """
         neb_orm: NEBRecordORM = service_orm.record
         # delete all existing entries in the dependency list
         service_orm.dependencies = []
@@ -309,6 +311,9 @@ class NEBRecordSocket(BaseRecordSocket):
         service_orm: ServiceQueueORM,
         chain: List[Molecule],
     ):
+        """
+        submit singplepoint energy/gradient calculations
+        """
 
         neb_orm: NEBRecordORM = service_orm.record
         # delete all existing entries in the dependency list
@@ -346,6 +351,24 @@ class NEBRecordSocket(BaseRecordSocket):
     def add_specification(
             self, neb_spec: NEBSpecification, *, session: Optional[Session] = None
     ) -> Tuple[InsertMetadata, Optional[int]]:
+        """
+        Adds a specification for a NEB service to the database, returning its id.
+
+        If an identical specification exists, then no insertion takes place and the id of the existing
+        specification is returned.
+
+        Parameters
+        ----------
+        neb_spec
+            Specifications to add to the database
+        session
+            An existing SQLAlchemy session to use. If None, one will be created. If an existing session
+            is uses, it will be flushed (but not committed) before returning from this function.
+
+        Returns
+        -------
+            Metadata about the insertion, add the id for the specification.
+        """
 
         neb_kw_dict = neb_spec.keywords.dict(exclude_defaults=True)
 
@@ -394,7 +417,23 @@ class NEBRecordSocket(BaseRecordSocket):
             *,
             session: Optional[Session] = None,
     ) -> Tuple[QueryMetadata, List[NEBRecordDict]]:
+        """
+        Query NEB records
 
+        Parameters
+        ----------
+        query_data
+            Fields/filters to query for
+        session
+            An existing SQLAlchemy session to use. If None, one will be created. If an existing session
+            is used, it will be flushed (but not committed) before returning from this function.
+
+        Returns
+        -------
+            Metadata about the results of the query, and a list of records (as dictionaries)
+            that were found in the database.
+
+        """
         and_query = []
         need_spspec_join = False
         need_nebspec_join = False
@@ -442,6 +481,7 @@ class NEBRecordSocket(BaseRecordSocket):
             query_data=query_data,
             session=session,
         )
+
     def add_internal(
         self,
         initial_chain_ids: Sequence[Iterable[int]],
@@ -451,6 +491,34 @@ class NEBRecordSocket(BaseRecordSocket):
         *,
         session: Optional[Session] = None,
     ) -> Tuple[InsertMetadata, List[Optional[int]]]:
+        """
+        Internal function for adding new NEB computations
+
+        This function expects that the molecules and specification are already added to the
+        database and that the ids are known.
+
+        This checks if the calculations already exist in the database. If so, it returns
+        the existing id, otherwise it will insert it and return the new id.
+
+        Parameters
+        ----------
+        initial_chain_ids
+            IDs of the initial sets of molecules to start the NEB. One record will be added per set.
+        neb_spec_id
+            ID of the specification
+        tag
+            The tag for the task. This will assist in routing to appropriate compute managers.
+        priority
+            The priority for the computation
+        session
+            An existing SQLAlchemy session to use. If None, one will be created. If an existing session
+            is used, it will be flushed (but not committed) before returning from this function.
+
+        Returns
+        -------
+            Metadata about the insertion, and a list of record ids. The ids will be in the
+            order of the input molecules
+        """
         tag = tag.lower()
 
         with self.root_socket.optional_session(session, False) as session:
@@ -521,26 +589,27 @@ class NEBRecordSocket(BaseRecordSocket):
         session: Optional[Session] = None,
     ) -> Tuple[InsertMetadata, List[Optional[int]]]:
         """
-        Adds new neb calculations
+        Adds new NEB calculations
 
         This checks if the calculations already exist in the database. If so, it returns
         the existing id, otherwise it will insert it and return the new id.
 
-        If session is specified, changes are not committed to to the database, but the session is flushed.
-
         Parameters
         ----------
         initial_chains
-            Molecules to compute using the specification
+            Initial sets of molecules to start the NEB. One record will be added per set.
         neb_spec
             Specification for the calculations
+        tag
+            The tag for the task. This will assist in routing to appropriate compute managers.
+        priority
+            The priority for the computation
         session
             An existing SQLAlchemy session to use. If None, one will be created. If an existing session
-            is used, it will be flushed before returning from this function.
+            is used, it will be flushed (but not committed) before returning from this function.
 
         Returns
         -------
-        :
             Metadata about the insertion, and a list of record ids. The ids will be in the
             order of the input molecules
         """
@@ -590,6 +659,25 @@ class NEBRecordSocket(BaseRecordSocket):
         *,
         session: Optional[Session] = None,
     ) -> Dict[str, Any]:
+        """
+        Obtain the Molecule object of guessed transition state (result of an NEB calculation).
+
+        Parameters
+        ----------
+        neb_id
+            ID of the NEB
+        include
+            Which fields of the result to return. Default is to return all fields.
+        exclude
+            Remove these fields from the return. Default is to return all fields.
+        session
+            An existing SQLAlchemy session to use. If None, one will be created. If an existing session
+            is used, it will be flushed (but not committed) before returning from this function.
+
+        Returns
+        -------
+            Molecule object of the guessed transition state molecule.
+        """
 
         query_mol = get_query_proj_options(MoleculeORM, include, exclude)
 

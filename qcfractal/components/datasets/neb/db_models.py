@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import select, Column, Integer, ForeignKey, String, ForeignKeyConstraint, UniqueConstraint, Index
-from sqlalchemy.dialects.postgresql import JSONB, array_agg
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import Column, Integer, ForeignKey, String, ForeignKeyConstraint, UniqueConstraint, Index
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.orm import relationship
 
 from qcfractal.components.datasets.db_models import BaseDatasetORM
 from qcfractal.components.molecules.db_models import MoleculeORM
@@ -27,7 +27,6 @@ class NEBDatasetInitialMoleculeORM(BaseORM):
     molecule_id = Column(Integer, ForeignKey(MoleculeORM.id), primary_key=True)
     position = Column(Integer, primary_key=True)
 
-    #molecule = relationship(MoleculeORM)
 
     __table_args__ = (
         Index("ix_neb_dataset_molecule_dataset_id", "dataset_id"),
@@ -55,16 +54,8 @@ class NEBDatasetEntryORM(BaseORM):
     name = Column(String, primary_key=True)
     comment = Column(String)
 
-    #neb_keywords = Column(JSONB, nullable=False)
     additional_keywords = Column(JSONB, nullable=False)
     attributes = Column(JSONB, nullable=False)
-
-    #initial_molecule_ids = column_property(
-    #    select(array_agg(NEBDatasetInitialChainORM.molecule_id))
-    #    .where(NEBDatasetInitialChainORM.dataset_id == dataset_id)
-    #    .where(NEBDatasetInitialChainORM.entry_name == name)
-    #    .scalar_subquery()
-    #)
 
     initial_chain = relationship(
         MoleculeORM,

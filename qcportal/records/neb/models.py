@@ -38,6 +38,11 @@ class NEBKeywords(BaseModel):
         description="Setting it equal to true will perform a transition sate optimization starting with the guessed transition state structure from the NEB calculation result."
     )
 
+    align_chain: bool = Field(
+        False,
+        description="Aligning the initial chain before optimization."
+    )
+
     coordinate_system: str = Field(
         'tric',
         description='Coordinate system for optimizations:\n'
@@ -95,7 +100,6 @@ class NEBInitialchain(BaseModel):
     id: int
     molecule_id: int
     position: int
-
     molecule: Optional[Molecule]
     
 
@@ -132,7 +136,6 @@ class NEBRecord(BaseRecord):
 
         optimizations_cache: Optional[Dict[str, OptimizationRecord]] = None
 
-    # This is needed for disambiguation by pydantic
     record_type: Literal["neb"] = 'neb'
     raw_data: _DataModel
     singlepoint_cache: Optional[Dict[str, SinglepointRecord]] = None
