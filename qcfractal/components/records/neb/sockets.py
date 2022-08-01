@@ -134,7 +134,7 @@ class NEBRecordSocket(BaseRecordSocket):
                   },
             iteration=0,
             keywords=keywords,
-            optimized=False,
+            optimized=keywords.get('optimize_endpoints'),
             tsoptimize=keywords.get('optimize_ts'),
             converged=False,
             align=keywords.get('align_chain'),
@@ -162,20 +162,20 @@ class NEBRecordSocket(BaseRecordSocket):
         service_state = NEBServiceState(**service_orm.service_state)
         molecule_template = json.loads(service_state.molecule_template)
 
-
         params['iteration'] = service_state.iteration
         output = ''
         if service_state.iteration==0:
             initial_molecules = [x.to_model(Molecule) for x in neb_orm.initial_chain]
-            if not service_state.optimized:
+            if service_state.optimized:
                 output += "\nFirst, optimizing the end points"
                 self.submit_optimizations(session, service_orm, [initial_molecules[0], initial_molecules[-1]])
-                service_state.optimized = True
+                service_state.optimized = False
                 finished = False
             else:
                 complete_opts = sorted(service_orm.dependencies, key=lambda x: x.extras["position"])
-                initial_molecules[0] = Molecule(**complete_opts[0].record.final_molecule.model_dict())
-                initial_molecules[-1] = Molecule(**complete_opts[-1].record.final_molecule.model_dict())
+                if len(complete_opts) != 0:
+                    initial_molecules[0] = Molecule(**complete_opts[0].record.final_molecule.model_dict())
+                    initial_molecules[-1] = Molecule(**complete_opts[-1].record.final_molecule.model_dict())
                 neb_stdout = io.StringIO()
                 logging.captureWarnings(True)
                 with contextlib.redirect_stdout(neb_stdout):
@@ -208,6 +208,7 @@ class NEBRecordSocket(BaseRecordSocket):
                         newcoords, prev = geometric.neb.prepare(service_state.nebinfo)
                     else:
                         newcoords, prev = geometric.neb.nextchain(service_state.nebinfo)
+
                 output += "\n" + neb_stdout.getvalue()
                 logging.captureWarnings(False)
                 service_state.nebinfo = prev

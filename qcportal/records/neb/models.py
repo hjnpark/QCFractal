@@ -22,15 +22,30 @@ class NEBKeywords(BaseModel):
         description="Number of images that will be used to locate a rough transition state structure.",
         gt=5,
     )
- 
+
+    maximum_force: float = Field(
+        0.05,
+        description="Converge when maximum RMS-gradient (eV/Ang) of the chain fall below maximum_force."
+    )
+
+    average_force: float = Field(
+        0.025,
+        description="Converge when average RMS-gradient (ev/Ang) of the chain fall below average_force."
+    )
+
     spring_constant: float = Field(
         1.0,
         description="Spring constant in kcal/mol/Ang^2.",
     )
 
-    energy_weighted: bool = Field(
-        False,
-        description="Energy weighted NEB method varies the spring constant based on image's energy.",
+    maximum_cycle: int = Field(
+        100,
+        description="Maximum iteration number for NEB calculation."
+    )
+
+    energy_weighted: int = Field(
+        None,
+        description="Provide an integer value to vary spring forces based on image's energy.",
     )
 
     optimize_ts: bool = Field(
@@ -41,6 +56,11 @@ class NEBKeywords(BaseModel):
     align_chain: bool = Field(
         False,
         description="Aligning the initial chain before optimization."
+    )
+
+    optimize_endpoints: bool = Field(
+        False,
+        description="Optimize two end points of the initial chain before starting NEB."
     )
 
     coordinate_system: str = Field(
