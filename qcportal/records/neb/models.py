@@ -23,6 +23,11 @@ class NEBKeywords(BaseModel):
         gt=5,
     )
 
+    spring_option: int = Field(
+        0,
+        description="0: Use nudged elastic band (default). 1: Use plain elastic band. 2: Use plain elastic band and potential."
+    )
+
     maximum_force: float = Field(
         0.05,
         description="Converge when maximum RMS-gradient (eV/Ang) of the chain fall below maximum_force."
