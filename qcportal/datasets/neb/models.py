@@ -46,9 +46,9 @@ class NEBDataset(BaseDataset):
     class _DataModel(BaseDataset._DataModel):
         dataset_type: Literal["neb"] = "neb"
 
-        specifications: Optional[Dict[str, NEBDatasetSpecification]] = None
-        entries: Optional[Dict[str, NEBDatasetEntry]] = None
-        record_map: Optional[List[NEBRecord]] = None
+        specifications: Optional[Dict[str, NEBDatasetSpecification]] = {}
+        entries: Optional[Dict[str, NEBDatasetEntry]] = {}
+        record_map: Optional[List[NEBRecord]] = {}
 
     # This is needed for disambiguation by pydantic
     dataset_type: Literal["neb"] = "neb"
