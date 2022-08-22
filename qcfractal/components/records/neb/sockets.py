@@ -4,7 +4,6 @@ import contextlib
 import io
 import json
 import logging
-import time
 
 import numpy as np
 from typing import TYPE_CHECKING
@@ -40,7 +39,7 @@ from .db_models import (
     NEBInitialchainORM,
     NEBRecordORM,
 )
-from ..optimization.db_models import OptimizationRecordORM
+
 from ...molecules.db_models import MoleculeORM
 
 if TYPE_CHECKING:
@@ -69,6 +68,7 @@ class NEBServiceState(BaseModel):
     optimized: bool
     tsoptimize: bool
     converged: bool
+    align: bool
     iteration: int
     molecule_template: str
 
@@ -116,7 +116,6 @@ class NEBRecordSocket(BaseRecordSocket):
         molecule_template.pop("geometry", None)
         molecule_template.pop("identifiers", None)
         molecule_template.pop("id", None)
-        # elems = molecule_template.get("symbols")
 
         stdout_orm = neb_orm.compute_history[-1].get_output(OutputTypeEnum.stdout)
         stdout_orm.append(output)
@@ -134,6 +133,7 @@ class NEBRecordSocket(BaseRecordSocket):
             optimized=False,
             tsoptimize=keywords.get("optimize_ts"),
             converged=False,
+            align=keywords.get('align_chain'),
             molecule_template=molecule_template_str,
         )
 
@@ -170,9 +170,16 @@ class NEBRecordSocket(BaseRecordSocket):
                 finished = False
             else:
                 complete_opts = sorted(service_orm.dependencies, key=lambda x: x.extras["position"])
-                initial_molecules[0] = Molecule(**complete_opts[0].record.final_molecule.model_dict())
-                initial_molecules[-1] = Molecule(**complete_opts[-1].record.final_molecule.model_dict())
-                self.submit_singlepoints(session, service_state, service_orm, initial_molecules)
+                if len(complete_opts) != 0:
+                    initial_molecules[0] = Molecule(**complete_opts[0].record.final_molecule.model_dict())
+                    initial_molecules[-1] = Molecule(**complete_opts[-1].record.final_molecule.model_dict())
+                neb_stdout = io.StringIO()
+                logging.captureWarnings(True)
+                with contextlib.redirect_stdout(neb_stdout):
+                    aligned_chain = geometric.neb.arrange(initial_molecules, service_state.align)
+                logging.captureWarnings(False)
+                output += "\n" + neb_stdout.getvalue()
+                self.submit_singlepoints(session, service_state, service_orm, aligned_chain)
                 service_state.iteration += 1
                 finished = False
         else:
@@ -182,7 +189,6 @@ class NEBRecordSocket(BaseRecordSocket):
                 energies = []
                 gradients = []
                 for task in complete_tasks:
-                    # This is an ORM for singlepoint calculations
                     sp_record = task.record
                     mol_data = self.root_socket.molecules.get(
                         molecule_id=[sp_record.molecule_id], include=["geometry"], session=session
@@ -570,12 +576,8 @@ class NEBRecordSocket(BaseRecordSocket):
                 selected_chain = np.array(init_chain)[
                     np.array([int(round(i)) for i in np.linspace(0, len(init_chain) - 1, images)])
                 ]
-                neb_stdout = io.StringIO()
-                logging.captureWarnings(True)
-                with contextlib.redirect_stdout(neb_stdout):
-                    aligned_chain = geometric.neb.arrange(selected_chain)
-                logging.captureWarnings(False)
-                mol_meta, molecule_ids = self.root_socket.molecules.add_mixed(aligned_chain, session=session)
+
+                mol_meta, molecule_ids = self.root_socket.molecules.add_mixed(selected_chain, session=session)
                 if not mol_meta.success:
                     return (
                         InsertMetadata(
@@ -615,5 +617,5 @@ class NEBRecordSocket(BaseRecordSocket):
         with self.root_socket.optional_session(session, True) as session:
             r = session.execute(stmt).scalar_one_or_none()
             if r is None:
-                raise MissingDataError("A guessed transition state from the NEB can't be found")
+                raise MissingDataError("The final guessed transition state can't be found")
             return r.model_dict()
