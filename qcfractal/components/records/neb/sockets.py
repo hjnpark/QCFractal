@@ -130,10 +130,10 @@ class NEBRecordSocket(BaseRecordSocket):
             },
             iteration=0,
             keywords=keywords,
-            optimized=False,
+            optimized=keywords.get("optimize_endpoints"),
             tsoptimize=keywords.get("optimize_ts"),
             converged=False,
-            align=keywords.get('align_chain'),
+            align=keywords.get("align_chain"),
             molecule_template=molecule_template_str,
         )
 
@@ -163,10 +163,10 @@ class NEBRecordSocket(BaseRecordSocket):
         if service_state.iteration == 0:
             initial_chain: List[Dict[str, Any]] = [x.model_dict() for x in neb_orm.initial_chain]
             initial_molecules = [Molecule(**M) for M in initial_chain]
-            if not service_state.optimized:
+            if service_state.optimized:
                 output += "\nFirst, optimizing the end points"
                 self.submit_optimizations(session, service_orm, [initial_molecules[0], initial_molecules[-1]])
-                service_state.optimized = True
+                service_state.optimized = False
                 finished = False
             else:
                 complete_opts = sorted(service_orm.dependencies, key=lambda x: x.extras["position"])
