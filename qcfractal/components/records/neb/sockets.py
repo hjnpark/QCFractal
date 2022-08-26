@@ -33,7 +33,7 @@ from qcportal.records.neb import (
     NEBQueryFilters,
 )
 from .db_models import (
-    NEBOptimiationsORM,
+    NEBOptimizationsORM,
     NEBSpecificationORM,
     NEBSinglepointsORM,
     NEBInitialchainORM,
@@ -297,7 +297,7 @@ class NEBRecordSocket(BaseRecordSocket):
         )
         for pos, opt_id in enumerate(opt_ids):
             svc_dep = ServiceDependencyORM(record_id=opt_id, extras={"position": pos})
-            opt_history = NEBOptimiationsORM(
+            opt_history = NEBOptimizationsORM(
                 neb_id=service_orm.record_id,
                 optimization_id=opt_id,
                 position=pos,
