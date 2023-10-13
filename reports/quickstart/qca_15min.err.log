@@ -3,7 +3,7 @@ Traceback (most recent call last):
     executenb(
   File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/nbclient/client.py", line 1305, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 168, in wrapped
+  File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 173, in wrapped
     return loop.run_until_complete(inner)
   File "/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
     return future.result()
@@ -44,16 +44,16 @@ File [0;32m~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:138[0m, in 
 [1;32m    136[0m [38;5;124;03m    """[39;00m
 [0;32m--> 138[0m     [43mPortalClientBase[49m[38;5;241;43m.[39;49m[38;5;21;43m__init__[39;49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43maddress[49m[43m,[49m[43m [49m[43musername[49m[43m,[49m[43m [49m[43mpassword[49m[43m,[49m[43m [49m[43mverify[49m[43m,[49m[43m [49m[43mshow_motd[49m[43m)[49m
 
-File [0;32m~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:146[0m, in [0;36mPortalClientBase.__init__[0;34m(self, address, username, password, verify, show_motd)[0m
-[1;32m    143[0m client_version [38;5;241m=[39m parse_version(__version__)
-[1;32m    145[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m client_version_lower_limit [38;5;241m<[39m[38;5;241m=[39m client_version [38;5;241m<[39m[38;5;241m=[39m client_version_upper_limit:
-[0;32m--> 146[0m     [38;5;28;01mraise[39;00m [38;5;167;01mRuntimeError[39;00m(
-[1;32m    147[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mThis client version [39m[38;5;132;01m{[39;00m[38;5;28mstr[39m(client_version)[38;5;132;01m}[39;00m[38;5;124m does not fall within the server[39m[38;5;124m'[39m[38;5;124ms allowed [39m[38;5;124m"[39m
-[1;32m    148[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mclient versions of [[39m[38;5;132;01m{[39;00m[38;5;28mstr[39m(client_version_lower_limit)[38;5;132;01m}[39;00m[38;5;124m, [39m[38;5;132;01m{[39;00m[38;5;28mstr[39m(client_version_upper_limit)[38;5;132;01m}[39;00m[38;5;124m].[39m[38;5;124m"[39m
-[1;32m    149[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mYou may need to upgrade or downgrade[39m[38;5;124m"[39m
-[1;32m    150[0m     )
-[1;32m    152[0m motd [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mserver_info[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mmotd[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m"[39m)
-[1;32m    153[0m [38;5;28;01mif[39;00m show_motd [38;5;129;01mand[39;00m motd:
+File [0;32m~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:154[0m, in [0;36mPortalClientBase.__init__[0;34m(self, address, username, password, verify, show_motd)[0m
+[1;32m    151[0m client_version [38;5;241m=[39m parse_version(__version__)
+[1;32m    153[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m client_version_lower_limit [38;5;241m<[39m[38;5;241m=[39m client_version [38;5;241m<[39m[38;5;241m=[39m client_version_upper_limit:
+[0;32m--> 154[0m     [38;5;28;01mraise[39;00m [38;5;167;01mRuntimeError[39;00m(
+[1;32m    155[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mThis client version [39m[38;5;132;01m{[39;00m[38;5;28mstr[39m(client_version)[38;5;132;01m}[39;00m[38;5;124m does not fall within the server[39m[38;5;124m'[39m[38;5;124ms allowed [39m[38;5;124m"[39m
+[1;32m    156[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mclient versions of [[39m[38;5;132;01m{[39;00m[38;5;28mstr[39m(client_version_lower_limit)[38;5;132;01m}[39;00m[38;5;124m, [39m[38;5;132;01m{[39;00m[38;5;28mstr[39m(client_version_upper_limit)[38;5;132;01m}[39;00m[38;5;124m].[39m[38;5;124m"[39m
+[1;32m    157[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mYou may need to upgrade or downgrade[39m[38;5;124m"[39m
+[1;32m    158[0m     )
+[1;32m    160[0m motd [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mserver_info[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mmotd[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m"[39m)
+[1;32m    161[0m [38;5;28;01mif[39;00m show_motd [38;5;129;01mand[39;00m motd:
 
-[0;31mRuntimeError[0m: This client version 0.15.7.post1258+g23c41033 does not fall within the server's allowed client versions of [0.50b12.post35, 1].You may need to upgrade or downgrade
+[0;31mRuntimeError[0m: This client version 0.15.7.post1266+g8289de41 does not fall within the server's allowed client versions of [0.50b12.post35, 1].You may need to upgrade or downgrade
 

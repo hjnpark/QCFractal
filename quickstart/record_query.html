@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>How do I search for specific types of computations? &#8212; QCArchive 0.15.7.post1258+g23c41033 documentation</title>
+    <title>How do I search for specific types of computations? &#8212; QCArchive 0.15.7.post1266+g8289de41 documentation</title>
   
   
   
@@ -517,18 +517,18 @@ need to log in to submit or modify computations.</p>
 <span class="g g-Whitespace">    </span><span class="mi">136</span><span class="sd">     &quot;&quot;&quot;</span>
 <span class="ne">--&gt; </span><span class="mi">138</span>     <span class="n">PortalClientBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">show_motd</span><span class="p">)</span>
 
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:146,</span> in <span class="ni">PortalClientBase.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="n">client_version</span> <span class="o">=</span> <span class="n">parse_version</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">145</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">client_version_lower_limit</span> <span class="o">&lt;=</span> <span class="n">client_version</span> <span class="o">&lt;=</span> <span class="n">client_version_upper_limit</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">146</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">147</span>         <span class="sa">f</span><span class="s2">&quot;This client version </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version</span><span class="p">)</span><span class="si">}</span><span class="s2"> does not fall within the server&#39;s allowed &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span>         <span class="sa">f</span><span class="s2">&quot;client versions of [</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_lower_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_upper_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">].&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span>         <span class="sa">f</span><span class="s2">&quot;You may need to upgrade or downgrade&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">152</span> <span class="n">motd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;motd&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">153</span> <span class="k">if</span> <span class="n">show_motd</span> <span class="ow">and</span> <span class="n">motd</span><span class="p">:</span>
+<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:154,</span> in <span class="ni">PortalClientBase.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="n">client_version</span> <span class="o">=</span> <span class="n">parse_version</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">153</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">client_version_lower_limit</span> <span class="o">&lt;=</span> <span class="n">client_version</span> <span class="o">&lt;=</span> <span class="n">client_version_upper_limit</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">154</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>         <span class="sa">f</span><span class="s2">&quot;This client version </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version</span><span class="p">)</span><span class="si">}</span><span class="s2"> does not fall within the server&#39;s allowed &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">156</span>         <span class="sa">f</span><span class="s2">&quot;client versions of [</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_lower_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_upper_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">].&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span>         <span class="sa">f</span><span class="s2">&quot;You may need to upgrade or downgrade&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span> <span class="n">motd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;motd&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span> <span class="k">if</span> <span class="n">show_motd</span> <span class="ow">and</span> <span class="n">motd</span><span class="p">:</span>
 
-<span class="ne">RuntimeError</span>: This client version 0.15.7.post1258+g23c41033 does not fall within the server&#39;s allowed client versions of [0.50b12.post35, 1].You may need to upgrade or downgrade
+<span class="ne">RuntimeError</span>: This client version 0.15.7.post1266+g8289de41 does not fall within the server&#39;s allowed client versions of [0.50b12.post35, 1].You may need to upgrade or downgrade
 </pre></div>
 </div>
 </div>

@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1258+g23c41033 documentation</title>
+    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1266+g8289de41 documentation</title>
   
   
   
@@ -586,6 +586,7 @@ document.write(`
     <span class="c1"># Caches</span>
     <span class="c1">########################################</span>
     <span class="n">initial_chain_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Molecule</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">final_chain_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">optimizations_cache_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">OptimizationRecord</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">singlepoints_cache_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -663,6 +664,8 @@ document.write(`
 
         <span class="k">if</span> <span class="s2">&quot;initial_chain&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_initial_chain</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;final_chain&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_singlepoints</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;singlepoints&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_singlepoints</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;optimizations&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
@@ -673,6 +676,10 @@ document.write(`
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_chain_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_initial_chain</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_chain_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">final_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">singlepoints</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">singlepoints</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">singlepoints</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]:</span>
