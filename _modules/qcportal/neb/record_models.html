@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1267+g82dff31d documentation</title>
+    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1268+gfc75aa90 documentation</title>
   
   
   
@@ -571,7 +571,6 @@ document.write(`
 
 
 <div class="viewcode-block" id="NEBRecord"><a class="viewcode-back" href="../../../user_guide/records/neb.html#qcportal.neb.NEBRecord">[docs]</a><span class="k">class</span> <span class="nc">NEBRecord</span><span class="p">(</span><span class="n">BaseRecord</span><span class="p">):</span>
-
     <span class="n">record_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;neb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;neb&quot;</span>
     <span class="n">specification</span><span class="p">:</span> <span class="n">NEBSpecification</span>
 
@@ -581,6 +580,7 @@ document.write(`
     <span class="n">initial_chain_molecule_ids_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">singlepoints_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">NEBSinglepoint</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">optimizations_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NEBOptimization</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ts_hessian_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1">########################################</span>
     <span class="c1"># Caches</span>
@@ -664,8 +664,6 @@ document.write(`
 
         <span class="k">if</span> <span class="s2">&quot;initial_chain&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_initial_chain</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&quot;final_chain&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_singlepoints</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;singlepoints&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_singlepoints</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;optimizations&quot;</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">:</span>
@@ -679,12 +677,26 @@ document.write(`
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">final_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;transition&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts_hessian_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">singlepoints</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">singlepoints</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">singlepoints</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ts_hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;transition&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts_hessian_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">singlepoints</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts_hessian_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">singlepoints</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">singlepoints_cache_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_singlepoints</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;transition&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts_hessian_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">temp_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">singlepoints_cache_</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ts_hessian_</span> <span class="o">=</span> <span class="n">temp_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">singlepoints_cache_</span>
 
     <span class="nd">@property</span>
