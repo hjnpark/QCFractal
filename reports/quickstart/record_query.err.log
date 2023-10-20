@@ -52,5 +52,5 @@ File [0;32m~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:154[0m,
 [1;32m    160[0m motd [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mserver_info[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mmotd[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m"[39m)
 [1;32m    161[0m [38;5;28;01mif[39;00m show_motd [38;5;129;01mand[39;00m motd:
 
-[0;31mRuntimeError[0m: This client version 0.15.7.post1268+gfc75aa90 does not fall within the server's allowed client versions of [0.50b12.post35, 1].You may need to upgrade or downgrade
+[0;31mRuntimeError[0m: This client version 0.15.7.post1269+ga4711ee4 does not fall within the server's allowed client versions of [0.50, 1.0].You may need to upgrade or downgrade
 
