@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>How do I search for specific types of computations? &#8212; QCArchive 0.15.7.post1269+ga4711ee4 documentation</title>
+    <title>How do I search for specific types of computations? &#8212; QCArchive 0.15.7.post1307+gaecc5b65 documentation</title>
   
   
   
@@ -175,40 +175,39 @@
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../release_notes.html">
+                        Release Notes
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../admin_guide/index.html">
                         Admin Guide
                       </a>
                     </li>
                 
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-header-nav-more-links" class="dropdown-menu">
-                    
+
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../web_api/index.html">
+                      <a class="nav-link nav-internal" href="../web_api/index.html">
                         Web API
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../developer_guide/index.html">
+                      <a class="nav-link nav-internal" href="../developer_guide/index.html">
                         Developer Guide
                       </a>
                     </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
+                  <a class="nav-link nav-external" href="https://molssi.org">
                     MolSSI
                   </a>
                 </li>
                 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -328,40 +327,39 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../release_notes.html">
+                        Release Notes
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../admin_guide/index.html">
                         Admin Guide
                       </a>
                     </li>
                 
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-header-nav-more-links" class="dropdown-menu">
-                    
+
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../web_api/index.html">
+                      <a class="nav-link nav-internal" href="../web_api/index.html">
                         Web API
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../developer_guide/index.html">
+                      <a class="nav-link nav-internal" href="../developer_guide/index.html">
                         Developer Guide
                       </a>
                     </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
+                  <a class="nav-link nav-external" href="https://molssi.org">
                     MolSSI
                   </a>
                 </li>
                 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
         
@@ -495,43 +493,6 @@ need to log in to submit or modify computations.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Guest access</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ptl</span><span class="o">.</span><span class="n">PortalClient</span><span class="p">(</span><span class="s2">&quot;https://qcademo.molssi.org&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:138,</span> in <span class="ni">PortalClient.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
-<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="n">show_motd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span><span class="sd">     Parameters</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="sd">     ----------</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">135</span><span class="sd">         If a Message-of-the-Day is available, display it</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">138</span>     <span class="n">PortalClientBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">show_motd</span><span class="p">)</span>
-
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:154,</span> in <span class="ni">PortalClientBase.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
-<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="n">client_version</span> <span class="o">=</span> <span class="n">parse_version</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">153</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">client_version_lower_limit</span> <span class="o">&lt;=</span> <span class="n">client_version</span> <span class="o">&lt;=</span> <span class="n">client_version_upper_limit</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">154</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">155</span>         <span class="sa">f</span><span class="s2">&quot;This client version </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version</span><span class="p">)</span><span class="si">}</span><span class="s2"> does not fall within the server&#39;s allowed &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">156</span>         <span class="sa">f</span><span class="s2">&quot;client versions of [</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_lower_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_upper_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">].&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">157</span>         <span class="sa">f</span><span class="s2">&quot;You may need to upgrade or downgrade&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">158</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">160</span> <span class="n">motd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;motd&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">161</span> <span class="k">if</span> <span class="n">show_motd</span> <span class="ow">and</span> <span class="n">motd</span><span class="p">:</span>
-
-<span class="ne">RuntimeError</span>: This client version 0.15.7.post1269+ga4711ee4 does not fall within the server&#39;s allowed client versions of [0.50, 1.0].You may need to upgrade or downgrade
-</pre></div>
-</div>
-</div>
 </div>
 <div class="note admonition">
 <p class="admonition-title">Connecting with username/password</p>
@@ -553,6 +514,57 @@ Please note that since query_records searches all record types, you can only que
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on method query_records in module qcportal.client:
+
+query_records(*, record_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, record_type: &#39;Optional[Union[str, Iterable[str]]]&#39; = None, manager_name: &#39;Optional[Union[str, Iterable[str]]]&#39; = None, status: &#39;Optional[Union[RecordStatusEnum, Iterable[RecordStatusEnum]]]&#39; = None, dataset_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, parent_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, child_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, created_before: &#39;Optional[Union[datetime, str]]&#39; = None, created_after: &#39;Optional[Union[datetime, str]]&#39; = None, modified_before: &#39;Optional[Union[datetime, str]]&#39; = None, modified_after: &#39;Optional[Union[datetime, str]]&#39; = None, owner_user: &#39;Optional[Union[int, str, Iterable[Union[int, str]]]]&#39; = None, owner_group: &#39;Optional[Union[int, str, Iterable[Union[int, str]]]]&#39; = None, limit: &#39;int&#39; = None, include: &#39;Optional[Iterable[str]]&#39; = None) -&gt; &#39;RecordQueryIterator[BaseRecord]&#39; method of qcportal.client.PortalClient instance
+    Query records of all types based on common fields
+    
+    This is a general query of all record types, so it can only filter by fields
+    that are common among all records.
+    
+    Do not rely on the returned records being in any particular order.
+    
+    Parameters
+    ----------
+    record_id
+        Query records whose ID is in the given list
+    record_type
+        Query records whose type is in the given list
+    manager_name
+        Query records that were completed (or are currently runnning) on a manager is in the given list
+    status
+        Query records whose status is in the given list
+    dataset_id
+        Query records that are part of a dataset is in the given list
+    parent_id
+        Query records that have a parent is in the given list
+    child_id
+        Query records that have a child is in the given list
+    created_before
+        Query records that were created before the given date/time
+    created_after
+        Query records that were created after the given date/time
+    modified_before
+        Query records that were modified before the given date/time
+    modified_after
+        Query records that were modified after the given date/time
+    owner_user
+        Query records owned by a user in the given list (usernames or IDs)
+    owner_group
+        Query records owned by a group in the given list (group names or IDS)
+    limit
+        The maximum number of records to return. Note that the server limit is always obeyed.
+    include
+        Additional fields to include in the returned record
+    
+    Returns
+    -------
+    :
+        An iterator that can be used to retrieve the results of the query
+</pre></div>
+</div>
+</div>
 </div>
 <p>For example, to query for computations created between January 10, 2023 and January 14, 2023, we could do the following.</p>
 <div class="cell docutils container">
@@ -571,6 +583,11 @@ An iterator can be made into a list by casting or used in a <code class="docutil
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 935 results.
+</pre></div>
+</div>
+</div>
 </div>
 <p>After the results are retrieved, you can work with the records as shown in the “How do I work with computation records?” tutorial.</p>
 </section>
@@ -582,6 +599,62 @@ Documentation for the <code class="docutils literal notranslate"><span class="pr
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">query_singlepoints</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on method query_singlepoints in module qcportal.client:
+
+query_singlepoints(*, record_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, manager_name: &#39;Optional[Union[str, Iterable[str]]]&#39; = None, status: &#39;Optional[Union[RecordStatusEnum, Iterable[RecordStatusEnum]]]&#39; = None, dataset_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, parent_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, created_before: &#39;Optional[Union[datetime, str]]&#39; = None, created_after: &#39;Optional[Union[datetime, str]]&#39; = None, modified_before: &#39;Optional[Union[datetime, str]]&#39; = None, modified_after: &#39;Optional[Union[datetime, str]]&#39; = None, program: &#39;Optional[Union[str, Iterable[str]]]&#39; = None, driver: &#39;Optional[Union[SinglepointDriver, Iterable[SinglepointDriver]]]&#39; = None, method: &#39;Optional[Union[str, Iterable[str]]]&#39; = None, basis: &#39;Optional[Union[str, Iterable[Optional[str]]]]&#39; = None, keywords: &#39;Optional[Union[Dict[str, Any], Iterable[Dict[str, Any]]]]&#39; = None, molecule_id: &#39;Optional[Union[int, Iterable[int]]]&#39; = None, owner_user: &#39;Optional[Union[int, str, Iterable[Union[int, str]]]]&#39; = None, owner_group: &#39;Optional[Union[int, str, Iterable[Union[int, str]]]]&#39; = None, limit: &#39;Optional[int]&#39; = None, include: &#39;Optional[Iterable[str]]&#39; = None) -&gt; &#39;RecordQueryIterator[SinglepointRecord]&#39; method of qcportal.client.PortalClient instance
+    Queries singlepoint records on the server
+    
+    Do not rely on the returned records being in any particular order.
+    
+    Parameters
+    ----------
+    record_id
+        Query records whose ID is in the given list
+    manager_name
+        Query records that were completed (or are currently runnning) on a manager is in the given list
+    status
+        Query records whose status is in the given list
+    dataset_id
+        Query records that are part of a dataset is in the given list
+    parent_id
+        Query records that have a parent is in the given list
+    created_before
+        Query records that were created before the given date/time
+    created_after
+        Query records that were created after the given date/time
+    modified_before
+        Query records that were modified before the given date/time
+    modified_after
+        Query records that were modified after the given date/time
+    program
+        Query records whose program is in the given list
+    driver
+        Query records whose driver is in the given list
+    method
+        Query records whose method is in the given list
+    basis
+        Query records whose basis is in the given list
+    keywords
+        Query records with these keywords (exact match)
+    molecule_id
+        Query records whose molecule (id) is in the given list
+    owner_user
+        Query records owned by a user in the given list
+    owner_group
+        Query records owned by a group in the given list
+    limit
+        The maximum number of records to return. Note that the server limit is always obeyed.
+    include
+        Additional fields to include in the returned record
+    
+    Returns
+    -------
+    :
+        An iterator that can be used to retrieve the results of the query
 </pre></div>
 </div>
 </div>
@@ -601,6 +674,15 @@ For the sake of demonstration in this notebook, we are limiting the number of re
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">molecule</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17958 Molecule(name=&#39;Ag&#39;, formula=&#39;Ag&#39;, hash=&#39;458369c&#39;)
+17957 Molecule(name=&#39;Si&#39;, formula=&#39;Si&#39;, hash=&#39;798973f&#39;)
+962 Molecule(name=&#39;Be&#39;, formula=&#39;Be&#39;, hash=&#39;51c5e2e&#39;)
+961 Molecule(name=&#39;F&#39;, formula=&#39;F&#39;, hash=&#39;3fdfbc3&#39;)
+960 Molecule(name=&#39;F&#39;, formula=&#39;F&#39;, hash=&#39;2f61ccd&#39;)
 </pre></div>
 </div>
 </div>

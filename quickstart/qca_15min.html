@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>QCArchive in 15 minutes &#8212; QCArchive 0.15.7.post1269+ga4711ee4 documentation</title>
+    <title>QCArchive in 15 minutes &#8212; QCArchive 0.15.7.post1307+gaecc5b65 documentation</title>
   
   
   
@@ -175,40 +175,39 @@
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../release_notes.html">
+                        Release Notes
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../admin_guide/index.html">
                         Admin Guide
                       </a>
                     </li>
                 
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-header-nav-more-links" class="dropdown-menu">
-                    
+
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../web_api/index.html">
+                      <a class="nav-link nav-internal" href="../web_api/index.html">
                         Web API
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../developer_guide/index.html">
+                      <a class="nav-link nav-internal" href="../developer_guide/index.html">
                         Developer Guide
                       </a>
                     </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
+                  <a class="nav-link nav-external" href="https://molssi.org">
                     MolSSI
                   </a>
                 </li>
                 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -328,40 +327,39 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../release_notes.html">
+                        Release Notes
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../admin_guide/index.html">
                         Admin Guide
                       </a>
                     </li>
                 
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-header-nav-more-links" class="dropdown-menu">
-                    
+
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../web_api/index.html">
+                      <a class="nav-link nav-internal" href="../web_api/index.html">
                         Web API
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../developer_guide/index.html">
+                      <a class="nav-link nav-internal" href="../developer_guide/index.html">
                         Developer Guide
                       </a>
                     </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
+                  <a class="nav-link nav-external" href="https://molssi.org">
                     MolSSI
                   </a>
                 </li>
                 
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
         
@@ -501,40 +499,7 @@ To work with the QCArchive demo server, enter <code class="docutils literal notr
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">qcportal</span> <span class="k">as</span> <span class="nn">ptl</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ptl</span><span class="o">.</span><span class="n">PortalClient</span><span class="p">(</span><span class="s2">&quot;https://qcademo.molssi.org&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
-
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:138,</span> in <span class="ni">PortalClient.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
-<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="n">show_motd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span><span class="sd">     Parameters</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="sd">     ----------</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">135</span><span class="sd">         If a Message-of-the-Day is available, display it</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">138</span>     <span class="n">PortalClientBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">show_motd</span><span class="p">)</span>
-
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:154,</span> in <span class="ni">PortalClientBase.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
-<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="n">client_version</span> <span class="o">=</span> <span class="n">parse_version</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">153</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">client_version_lower_limit</span> <span class="o">&lt;=</span> <span class="n">client_version</span> <span class="o">&lt;=</span> <span class="n">client_version_upper_limit</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">154</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">155</span>         <span class="sa">f</span><span class="s2">&quot;This client version </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version</span><span class="p">)</span><span class="si">}</span><span class="s2"> does not fall within the server&#39;s allowed &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">156</span>         <span class="sa">f</span><span class="s2">&quot;client versions of [</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_lower_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">client_version_upper_limit</span><span class="p">)</span><span class="si">}</span><span class="s2">].&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">157</span>         <span class="sa">f</span><span class="s2">&quot;You may need to upgrade or downgrade&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">158</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">160</span> <span class="n">motd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;motd&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">161</span> <span class="k">if</span> <span class="n">show_motd</span> <span class="ow">and</span> <span class="n">motd</span><span class="p">:</span>
-
-<span class="ne">RuntimeError</span>: This client version 0.15.7.post1269+ga4711ee4 does not fall within the server&#39;s allowed client versions of [0.50, 1.0].You may need to upgrade or downgrade
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PortalClient(server_name=&#39;MolSSI QCFractal Demo Server&#39;, address=&#39;https://qcademo.molssi.org/&#39;, username=&#39;None&#39;)
 </pre></div>
 </div>
 </div>
@@ -556,6 +521,11 @@ We see that this computation was a single point computation.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SinglepointRecord id=1 status=RecordStatusEnum.complete&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <p>Typically, properties from a calculation can be viewed using the <code class="docutils literal notranslate"><span class="pre">.properties</span></code> attribute for a result.
 The calculated properties are in a dictionary.
@@ -563,6 +533,11 @@ In the cell below, we print the SCF total energy from our calcuation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">first_record</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">&quot;scf_total_energy&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-2.807913354492941
 </pre></div>
 </div>
 </div>
@@ -574,6 +549,11 @@ In the cell below, we print the SCF total energy from our calcuation.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Molecule: He, Energy: -2.807913354492941
+</pre></div>
+</div>
+</div>
 </div>
 <p>If you pass in several IDs, you will receive a list of results that can be iterated through.</p>
 <div class="cell docutils container">
@@ -582,6 +562,13 @@ In the cell below, we print the SCF total energy from our calcuation.</p>
 
 <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">multiple_records</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Molecule: </span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">molecule</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, Energy: </span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s1">&#39;scf_total_energy&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Molecule: He, Energy: -2.807913354492941
+Molecule: B, Energy: -24.14911660463428
+Molecule: H, Energy: -0.46658184955727533
 </pre></div>
 </div>
 </div>
@@ -601,6 +588,11 @@ For more detailed information, see <a class="reference internal" href="record_qu
 
 <span class="c1"># Print the first record.</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">records</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SinglepointRecord id=935 status=RecordStatusEnum.complete&gt;
 </pre></div>
 </div>
 </div>
@@ -625,12 +617,51 @@ Below, we print the names of the data sets on the QCArchive demo server.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name: Element Benchmark, Type: singlepoint
+Name: Diatomic Molecule Opt, Type: optimization
+Name: Element Benchmarks, Type: singlepoint
+Name: Ions Benchmark, Type: singlepoint
+Name: Element Ion Benchmark, Type: singlepoint
+Name: Ion Benchmark, Type: singlepoint
+Name: Element Benchmark 1, Type: singlepoint
+Name: Element Benchmark 4, Type: singlepoint
+Name: Ashleys Favorite Elements, Type: singlepoint
+Name: Ashleys Favorite Elements 2, Type: singlepoint
+Name: Jessica&#39;s Test Dataset, Type: singlepoint
+Name:   , Type: singlepoint
+Name: testing, Type: singlepoint
+Name: Peyton&#39;s Molecules, Type: singlepoint
+Name: ruby_molecules  , Type: singlepoint
+Name: philip, Type: singlepoint
+Name: Ashleys Awesome Molecules, Type: singlepoint
+Name: libdpd - Library of David Poole&#39;s Dataset, Type: singlepoint
+Name: AVC Test Dataset, Type: singlepoint
+Name: Benchmark, Type: singlepoint
+Name: Caroline-092123, Type: singlepoint
+Name: Izzy&#39;s Molecules, Type: singlepoint
+Name: Joao Demo Molecules, Type: singlepoint
+Name: Saroms Singlepoints, Type: singlepoint
+Name: AVC Test Dataset 2, Type: singlepoint
+Name: Saroms Singlepoints 2, Type: singlepoint
+Name: Test, Type: singlepoint
+Name: sp_lab, Type: singlepoint
+Name: Water PES, Type: singlepoint
+Name: Water PES - FG, Type: singlepoint
+</pre></div>
+</div>
+</div>
 </div>
 <p>We can retrieve records from a particular dataset using the <code class="docutils literal notranslate"><span class="pre">get_dataset</span></code> method and passing in the dataset name and type. The following cell retrieves the “Element Benchmark” dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">dataset_type</span><span class="o">=</span><span class="s2">&quot;singlepoint&quot;</span><span class="p">,</span> <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Element Benchmark&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variety of calculations on single atoms
 </pre></div>
 </div>
 </div>
@@ -649,6 +680,97 @@ You can pull out iterate over records, see specifications, and compile values fr
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>specification</th>
+      <th>hf/sto-3g</th>
+      <th>mp2/aug-cc-pvtz</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>scf_total_energy</th>
+      <th>scf_total_energy</th>
+    </tr>
+    <tr>
+      <th>entry</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>b_atom</th>
+      <td>-24.149117</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>be_atom</th>
+      <td>-14.352011</td>
+      <td>-14.572879</td>
+    </tr>
+    <tr>
+      <th>c_atom</th>
+      <td>-37.089740</td>
+      <td>-37.603047</td>
+    </tr>
+    <tr>
+      <th>f_atom</th>
+      <td>-97.986588</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>h_atom</th>
+      <td>-0.466582</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>he_atom</th>
+      <td>-2.807913</td>
+      <td>-2.861206</td>
+    </tr>
+    <tr>
+      <th>li_atom</th>
+      <td>-7.315604</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>n_atom</th>
+      <td>-53.554678</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>ne_atom</th>
+      <td>-126.604573</td>
+      <td>-128.533266</td>
+    </tr>
+    <tr>
+      <th>o_atom</th>
+      <td>-73.661918</td>
+      <td>-74.685504</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 </section>
@@ -677,6 +799,47 @@ We retrieve these using <code class="docutils literal notranslate"><span class="
 <span class="n">client</span> <span class="o">=</span> <span class="n">ptl</span><span class="o">.</span><span class="n">PortalClient</span><span class="p">(</span><span class="s2">&quot;https://qcademo.molssi.org&quot;</span><span class="p">,</span> 
                           <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QCArchiveUsername&quot;</span><span class="p">),</span> 
                           <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QCArchivePWD&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AuthenticationFailure</span><span class="g g-Whitespace">                     </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">qcportal</span> <span class="k">as</span> <span class="nn">ptl</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">qcportal.molecules</span> <span class="kn">import</span> <span class="n">Molecule</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ptl</span><span class="o">.</span><span class="n">PortalClient</span><span class="p">(</span><span class="s2">&quot;https://qcademo.molssi.org&quot;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                           <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QCArchiveUsername&quot;</span><span class="p">),</span> 
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                           <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QCArchivePWD&quot;</span><span class="p">))</span>
+
+<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:138,</span> in <span class="ni">PortalClient.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="n">show_motd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">121</span><span class="sd">     Parameters</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="sd">     ----------</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span><span class="sd">         If a Message-of-the-Day is available, display it</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">138</span>     <span class="n">PortalClientBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">show_motd</span><span class="p">)</span>
+
+<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:136,</span> in <span class="ni">PortalClientBase.__init__</span><span class="nt">(self, address, username, password, verify, show_motd)</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="n">username</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_password</span> <span class="o">=</span> <span class="n">password</span>
+<span class="ne">--&gt; </span><span class="mi">136</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_get_JWT_token</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:262,</span> in <span class="ni">PortalClientBase._get_JWT_token</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span> <span class="k">except</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="n">msg</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">reason</span>
+<span class="ne">--&gt; </span><span class="mi">262</span> <span class="k">raise</span> <span class="n">AuthenticationFailure</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+<span class="ne">AuthenticationFailure</span>: Username is empty
 </pre></div>
 </div>
 </div>
