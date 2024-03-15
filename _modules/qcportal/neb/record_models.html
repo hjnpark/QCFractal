@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1387+gc69236d7 documentation</title>
+    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1388+ged422c7b documentation</title>
   
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../../_static/documentation_options.js?v=89a69c7b"></script>
+    <script src="../../../_static/documentation_options.js?v=798b1c47"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -589,13 +589,12 @@ document.write(`
     <span class="n">optimizations_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NEBOptimization</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">ts_hessian_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">neb_result_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Molecule</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">initial_chain_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Molecule</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1">########################################</span>
     <span class="c1"># Caches</span>
     <span class="c1">########################################</span>
     <span class="n">_optimizations_cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">OptimizationRecord</span><span class="p">]]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">_final_chain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">_initial_chain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Molecule</span><span class="p">]]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">_singlepoints_cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
 <div class="viewcode-block" id="NEBRecord.propagate_client">
@@ -693,7 +692,7 @@ document.write(`
             <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_chain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">get_molecules</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_chain_molecule_ids_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_chain_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">get_molecules</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_chain_molecule_ids_</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_fetch_neb_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_assert_online</span><span class="p">()</span>
@@ -721,9 +720,9 @@ document.write(`
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">initial_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Molecule</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_chain</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_chain_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_initial_chain</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_chain</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_chain_</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">final_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]:</span>
