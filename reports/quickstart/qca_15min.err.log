@@ -31,7 +31,7 @@ client = ptl.PortalClient("https://qcademo.molssi.org",
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mAuthenticationFailure[0m                     Traceback (most recent call last)
-Cell [0;32mIn[10], line 6[0m
+Cell [0;32mIn[12], line 6[0m
 [1;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mqcportal[39;00m [38;5;28;01mas[39;00m [38;5;21;01mptl[39;00m
 [1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mqcportal[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmolecules[39;00m [38;5;28;01mimport[39;00m Molecule
 [0;32m----> 6[0m client [38;5;241m=[39m [43mptl[49m[38;5;241;43m.[39;49m[43mPortalClient[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mhttps://qcademo.molssi.org[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m

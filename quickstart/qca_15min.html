@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>QCArchive in 15 minutes &#8212; QCArchive 0.15.7.post1392+g5cd910a2 documentation</title>
+    <title>QCArchive in 15 minutes &#8212; QCArchive 0.15.7.post1395+gec8ca6a2 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=5cb2d670"></script>
+    <script src="../_static/documentation_options.js?v=8b97071e"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -563,9 +563,7 @@ In the cell below, we print the SCF total energy from our calcuation.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Molecule: He, Energy: -2.807913354492941
 Molecule: B, Energy: -24.14911660463428
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Molecule: H, Energy: -0.46658184955727533
+Molecule: H, Energy: -0.46658184955727533
 </pre></div>
 </div>
 </div>
@@ -701,11 +699,11 @@ Name: Testing Dataset2, Type: singlepoint
 <p>Datasets have a lot of properties that are beyond the scope of this overview.
 Datasets are made up of many records of the same type of computation that can differ in molecule identity or other specification parameters.
 You can pull out iterate over records, see specifications, and compile values from records.</p>
-<p>The cell below shows using the <code class="docutils literal notranslate"><span class="pre">compile_values</span></code> method to create a pandas dataframe containing the SCF total energy from each record.</p>
+<p>The cell below shows using the <code class="docutils literal notranslate"><span class="pre">get_properties_df</span></code> method to create a pandas dataframe containing the SCF total energy  and SCF iterations from each record.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use compile_values to make a dataframe</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">compile_values</span><span class="p">(</span><span class="k">lambda</span> <span class="n">record</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s1">&#39;scf_total_energy&#39;</span><span class="p">],</span> <span class="s2">&quot;scf_total_energy&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_properties_df</span><span class="p">([</span><span class="s2">&quot;scf_total_energy&quot;</span><span class="p">,</span> <span class="s2">&quot;scf_iterations&quot;</span><span class="p">])</span>
 
 <span class="c1"># view the first 10 rows.</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -737,11 +735,128 @@ You can pull out iterate over records, see specifications, and compile values fr
       <th>specification</th>
       <th>hf/sto-3g</th>
       <th>mp2/aug-cc-pvtz</th>
+      <th>hf/sto-3g</th>
+      <th>mp2/aug-cc-pvtz</th>
     </tr>
     <tr>
       <th></th>
       <th>scf_total_energy</th>
       <th>scf_total_energy</th>
+      <th>scf_iterations</th>
+      <th>scf_iterations</th>
+    </tr>
+    <tr>
+      <th>entry</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>b_atom</th>
+      <td>-24.149117</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>be_atom</th>
+      <td>-14.352011</td>
+      <td>-14.572879</td>
+      <td>2.0</td>
+      <td>9.0</td>
+    </tr>
+    <tr>
+      <th>c_atom</th>
+      <td>-37.089740</td>
+      <td>-37.603047</td>
+      <td>2.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>f_atom</th>
+      <td>-97.986588</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>h_atom</th>
+      <td>-0.466582</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>he_atom</th>
+      <td>-2.807913</td>
+      <td>-2.861206</td>
+      <td>2.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>li_atom</th>
+      <td>-7.315604</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>n_atom</th>
+      <td>-53.554678</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>ne_atom</th>
+      <td>-126.604573</td>
+      <td>-128.533266</td>
+      <td>2.0</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>o_atom</th>
+      <td>-73.661918</td>
+      <td>-74.685504</td>
+      <td>2.0</td>
+      <td>12.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>This dataframe is a multi-index dataframe with the top level index being the “specification” of our calculation.
+For example, we can pull out just our results for <code class="docutils literal notranslate"><span class="pre">hf/sto-3g</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;hf/sto-3g&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scf_total_energy</th>
+      <th>scf_iterations</th>
     </tr>
     <tr>
       <th>entry</th>
@@ -753,56 +868,80 @@ You can pull out iterate over records, see specifications, and compile values fr
     <tr>
       <th>b_atom</th>
       <td>-24.149117</td>
-      <td>NaN</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>be_atom</th>
       <td>-14.352011</td>
-      <td>-14.572879</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>c_atom</th>
       <td>-37.089740</td>
-      <td>-37.603047</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>f_atom</th>
       <td>-97.986588</td>
-      <td>NaN</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>h_atom</th>
       <td>-0.466582</td>
-      <td>NaN</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>he_atom</th>
       <td>-2.807913</td>
-      <td>-2.861206</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>li_atom</th>
       <td>-7.315604</td>
-      <td>NaN</td>
+      <td>4.0</td>
     </tr>
     <tr>
       <th>n_atom</th>
       <td>-53.554678</td>
-      <td>NaN</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>ne_atom</th>
       <td>-126.604573</td>
-      <td>-128.533266</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>o_atom</th>
       <td>-73.661918</td>
-      <td>-74.685504</td>
+      <td>2.0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">df[&quot;hf/sto-3g&quot;][&quot;scf_total_energy&quot;]</span></code> will give us the SCF total energy for all of the records in the dataset with the <code class="docutils literal notranslate"><span class="pre">hf/sto-3g</span></code> specification.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;hf/sto-3g&quot;</span><span class="p">][</span><span class="s2">&quot;scf_total_energy&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>entry
+b_atom     -24.149117
+be_atom    -14.352011
+c_atom     -37.089740
+f_atom     -97.986588
+h_atom      -0.466582
+he_atom     -2.807913
+li_atom     -7.315604
+n_atom     -53.554678
+ne_atom   -126.604573
+o_atom     -73.661918
+Name: scf_total_energy, dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -837,7 +976,7 @@ We retrieve these using <code class="docutils literal notranslate"><span class="
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">AuthenticationFailure</span><span class="g g-Whitespace">                     </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">qcportal</span> <span class="k">as</span> <span class="nn">ptl</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">qcportal.molecules</span> <span class="kn">import</span> <span class="n">Molecule</span>
 <span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ptl</span><span class="o">.</span><span class="n">PortalClient</span><span class="p">(</span><span class="s2">&quot;https://qcademo.molssi.org&quot;</span><span class="p">,</span> 
