@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1469+g004f1f98 documentation</title>
+    <title>qcportal.neb.record_models &#8212; QCArchive 0.15.7.post1476+g614bb95b documentation</title>
   
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../../_static/documentation_options.js?v=a1928131"></script>
+    <script src="../../../_static/documentation_options.js?v=9d1fb4ce"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -528,11 +528,6 @@ document.write(`
 
     <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Small eigenvalue threshold for resetting Hessian.&quot;</span><span class="p">)</span>
 
-    <span class="n">hessian_reset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="kc">True</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Reset Hessian when eigenvalues are below the epsilon.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
     <span class="nd">@root_validator</span>
     <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">recursive_normalizer</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
@@ -753,12 +748,9 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singlepoints_cache</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Molecule</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neb_result_</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;neb_result_&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields_set__</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">offline</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">neb_result_</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">final_chain</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">&quot;return_energy&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">molecule</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_neb_result</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_neb_result</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">neb_result_</span>
 
     <span class="nd">@property</span>
