@@ -8,44 +8,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using datasets &#8212; QCArchive 0.15.7.post1476+g862383bd documentation</title>
+    <title>Using datasets &#8212; QCArchive 0.15.7.post1477+g937810e3 documentation</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6f1775e9" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=81f6e58b"></script>
+    <script src="../_static/documentation_options.js?v=ed962713"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/datasets';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -60,27 +60,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -102,12 +98,17 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <label class="sidebar-toggle primary-toggle" for="__primary">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
-  </label>
+  </button>
   
   
   <div class="col-lg-3 navbar-header-items__start">
@@ -145,66 +146,66 @@
 <nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../quickstart/index.html">
-                        Quickstart
-                      </a>
-                    </li>
-                
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../quickstart/index.html">
+    Quickstart
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../overview/index.html">
-                        Overview
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="index.html">
-                        User Guide
-                      </a>
-                    </li>
-                
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../overview/index.html">
+    Overview
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../release_notes.html">
-                        Release Notes
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../admin_guide/index.html">
-                        Admin Guide
-                      </a>
-                    </li>
-                
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../web_api/index.html">
-                        Web API
-                      </a>
-                    </li>
-                
-            <li class="nav-item dropdown">
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../admin_guide/index.html">
+    Admin Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../web_api/index.html">
+    Web API
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../developer_guide/index.html">
-                        Developer Guide
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../developer_guide/index.html">
+    Developer Guide
+  </a>
+</li>
 
-                <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
-                    MolSSI
-                  </a>
-                </li>
-                
+
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
+    MolSSI
+  </a>
+</li>
+
                 </ul>
             </li>
             
@@ -279,9 +280,9 @@ document.write(`
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
-    </label>
+    </button>
   
 </div>
 
@@ -302,75 +303,70 @@ document.write(`
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item">
+          
+          
+            <div class="navbar-item">
 <nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../quickstart/index.html">
-                        Quickstart
-                      </a>
-                    </li>
-                
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../quickstart/index.html">
+    Quickstart
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../overview/index.html">
-                        Overview
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="index.html">
-                        User Guide
-                      </a>
-                    </li>
-                
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../overview/index.html">
+    Overview
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../release_notes.html">
-                        Release Notes
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../admin_guide/index.html">
-                        Admin Guide
-                      </a>
-                    </li>
-                
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../web_api/index.html">
-                        Web API
-                      </a>
-                    </li>
-                
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links-2">
-                    More
-                </button>
-                <ul id="pst-nav-more-links-2" class="dropdown-menu">
-                    
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../developer_guide/index.html">
-                        Developer Guide
-                      </a>
-                    </li>
-                
 
-                <li class="nav-item">
-                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
-                    MolSSI
-                  </a>
-                </li>
-                
-                </ul>
-            </li>
-            
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../admin_guide/index.html">
+    Admin Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../web_api/index.html">
+    Web API
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../developer_guide/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-external" href="https://molssi.org">
+    MolSSI
+  </a>
+</li>
+
   </ul>
 </nav></div>
+          
         
       </div>
     
@@ -425,7 +421,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="record_submission.html">Submitting computations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="record_management.html">Managing Records</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Using datasets</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="records/index.html">Computation Types</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="records/index.html">Computation Types</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="records/base.html">Base Record</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="records/singlepoint.html">Singlepoint calculations</a></li>
@@ -436,7 +432,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="records/reaction.html">Reaction calculations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="records/neb.html">NEB calculations</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="qcportal_reference.html">QCPortal API Reference</a></li>
 </ul>
 </div>
@@ -452,13 +448,13 @@ document.write(`
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -467,7 +463,7 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
@@ -506,7 +502,7 @@ table, and <em>specifications</em> are the columns. A cell within the table
 <p>Below is an example of this analogy, where the records are identified by their ID.
 For example, record 18263 is an HF/sto-3g computation on water, and
 record 23210 is an MP2/cc-pvdz computation on ethanol.</p>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Entry</p></th>
 <th class="head"><p>HF/sto-3g</p></th>
@@ -532,6 +528,7 @@ record 23210 is an MP2/cc-pvdz computation on ethanol.</p>
 </tr>
 </tbody>
 </table>
+</div>
 <p>Using a dataset allows for control of entire rows and columns of the table, and even
 the entire table itself. As an example, you can add a new specification, and then easily
 submit computations for that specification that apply to all the existing entries.</p>
@@ -559,7 +556,7 @@ so two datasets can have the same name as long as they are of different types. T
 and its name with <a class="reference internal" href="qcportal_reference.html#qcportal.client.PortalClient.get_dataset" title="qcportal.client.PortalClient.get_dataset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_dataset()</span></code></a></p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-0">
+<label class="sd-tab-label" for="sd-tab-item-0">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_dataset_by_id</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">dataset_type</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -579,7 +576,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 function of the <a class="reference internal" href="qcportal_reference.html#qcportal.client.PortalClient" title="qcportal.client.PortalClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortalClient</span></code></a>. This function returns the dataset:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-1" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-1">
+<label class="sd-tab-label" for="sd-tab-item-1">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">add_dataset</span><span class="p">(</span><span class="s2">&quot;optimization&quot;</span><span class="p">,</span> <span class="s2">&quot;Optimization of important molecules&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
@@ -608,7 +605,7 @@ with <a class="reference internal" href="records/base.html#qcportal.dataset_mode
 <a class="reference internal" href="records/base.html#qcportal.dataset_models.BaseDataset.set_metadata" title="qcportal.dataset_models.BaseDataset.set_metadata"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_metadata()</span></code></a>, and so on.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-2">
+<label class="sd-tab-label" for="sd-tab-item-2">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
 <span class="go">Optimization of diatomic molecules at different levels of theory</span>
@@ -629,7 +626,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 This is indexed by specification</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-3" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-3">
+<label class="sd-tab-label" for="sd-tab-item-3">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
 <span class="go">{&#39;pbe0/sto-3g&#39;: {&lt;RecordStatusEnum.complete: &#39;complete&#39;&gt;: 4,</span>
@@ -647,7 +644,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 <a class="reference internal" href="records/base.html#qcportal.dataset_models.BaseDataset.print_status" title="qcportal.dataset_models.BaseDataset.print_status"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_status()</span></code></a> prints a table of the statuses.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-4">
+<label class="sd-tab-label" for="sd-tab-item-4">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">print_status_</span><span class="p">()</span>
 <span class="go">    specification    complete    error    invalid</span>
@@ -677,7 +674,7 @@ local caching.</p>
 <code class="docutils literal notranslate"><span class="pre">.specifications</span></code> returns a dictionary, with the key being the name of the specification.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-5" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-5">
+<label class="sd-tab-label" for="sd-tab-item-5">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">specification_names</span><span class="p">)</span>
 <span class="go">[&#39;hf/sto-3g&#39;, &#39;hf/def2-tzvp&#39;]</span>
@@ -697,7 +694,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 are accessible all at once</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-6" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-6">
+<label class="sd-tab-label" for="sd-tab-item-6">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">entry_names</span><span class="p">)</span>
 <span class="go">[&#39;H2&#39;, &#39;N2&#39;, &#39;O2&#39;, &#39;F2&#39;, &#39;Hg2&#39;]</span>
@@ -708,7 +705,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 <p>You can obtain a full entry from its name with <a class="reference internal" href="records/base.html#qcportal.dataset_models.BaseDataset.get_entry" title="qcportal.dataset_models.BaseDataset.get_entry"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_entry()</span></code></a>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-7" name="sd-tab-set-7" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-7">
+<label class="sd-tab-label" for="sd-tab-item-7">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">get_entry</span><span class="p">)</span>
 <span class="go">OptimizationDatasetEntry(name=&#39;H2&#39;, initial_molecule=Molecule(name=&#39;H2&#39;, formula=&#39;H2&#39;, hash=&#39;7746e69&#39;),</span>
@@ -721,7 +718,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 <a class="reference internal" href="records/base.html#qcportal.dataset_models.BaseDataset.iterate_entries" title="qcportal.dataset_models.BaseDataset.iterate_entries"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iterate_entries()</span></code></a>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-8" name="sd-tab-set-8" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-8">
+<label class="sd-tab-label" for="sd-tab-item-8">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">iterate_entries</span><span class="p">():</span>
 <span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">initial_molecule</span><span class="p">)</span>
@@ -738,7 +735,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 entry names.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-9" name="sd-tab-set-9" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-9">
+<label class="sd-tab-label" for="sd-tab-item-9">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">iterate_entries</span><span class="p">(</span><span class="n">entry_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;H2&#39;</span><span class="p">,</span> <span class="s1">&#39;O2&#39;</span><span class="p">]):</span>
 <span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">initial_molecule</span><span class="p">)</span>
@@ -755,7 +752,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 with <a class="reference internal" href="records/base.html#qcportal.dataset_models.BaseDataset.get_record" title="qcportal.dataset_models.BaseDataset.get_record"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_record()</span></code></a></p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-10" name="sd-tab-set-10" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-10">
+<label class="sd-tab-label" for="sd-tab-item-10">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rec</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_record</span><span class="p">(</span><span class="s1">&#39;H2&#39;</span><span class="p">,</span> <span class="s1">&#39;hf/sto-3g&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
@@ -772,7 +769,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 values - the entry name, specification name, and then the full record.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-11" name="sd-tab-set-11" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-11">
+<label class="sd-tab-label" for="sd-tab-item-11">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">e_name</span><span class="p">,</span> <span class="n">s_name</span><span class="p">,</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">iterate_records</span><span class="p">():</span>
 <span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="n">e_name</span><span class="p">,</span> <span class="n">s_name</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
@@ -792,7 +789,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 by entry name, specification name, and status</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-12" name="sd-tab-set-12" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-12">
+<label class="sd-tab-label" for="sd-tab-item-12">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">e_name</span><span class="p">,</span> <span class="n">s_name</span><span class="p">,</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">iterate_records</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">):</span>
 <span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="n">e_name</span><span class="p">,</span> <span class="n">s_name</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
@@ -819,7 +816,7 @@ are for an <a class="reference internal" href="records/optimization.html#optimiz
 an unoptimized ‘initial’ molecule. Adding entries returns <a class="reference internal" href="metadata.html"><span class="doc">metadata</span></a>.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-13" name="sd-tab-set-13" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-13">
+<label class="sd-tab-label" for="sd-tab-item-13">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">qcportal.molecules</span> <span class="kn">import</span> <span class="n">Molecule</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">qcportal.optimization</span> <span class="kn">import</span> <span class="n">OptimizationDatasetEntry</span>
@@ -844,7 +841,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 <p>Now our dataset has three entries</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-14" name="sd-tab-set-14" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-14">
+<label class="sd-tab-label" for="sd-tab-item-14">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">entry_names</span><span class="p">)</span>
 <span class="go">[&#39;carbon monoxide&#39;, &#39;difluorine&#39;, &#39;dibromine&#39;]</span>
@@ -856,7 +853,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 <a class="reference internal" href="records/optimization.html#qcportal.optimization.OptimizationSpecification" title="qcportal.optimization.OptimizationSpecification"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptimizationSpecification</span></code></a>.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-15" name="sd-tab-set-15" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-15">
+<label class="sd-tab-label" for="sd-tab-item-15">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">qcportal.singlepoint</span> <span class="kn">import</span> <span class="n">SinglepointSpecification</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">qcportal.optimization</span> <span class="kn">import</span> <span class="n">OptimizationSpecification</span>
@@ -889,7 +886,7 @@ default tag and priority of the dataset. However, you may also submit only certa
 or change the tag and priority.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-16" name="sd-tab-set-16" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-16">
+<label class="sd-tab-label" for="sd-tab-item-16">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span> <span class="c1"># Create everything</span>
 
@@ -910,7 +907,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 take a dictionary of old name to new name</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-17" name="sd-tab-set-17" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-17">
+<label class="sd-tab-label" for="sd-tab-item-17">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">rename_entries</span><span class="p">({</span><span class="s1">&#39;difluorine&#39;</span><span class="p">:</span> <span class="s1">&#39;F2 molecule&#39;</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ent</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_entry</span><span class="p">(</span><span class="s1">&#39;F2 molecule&#39;</span><span class="p">)</span>
@@ -926,7 +923,7 @@ PYTHON</label><div class="sd-tab-content docutils">
 Note that deleting entries and specifications by default do not delete the records</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-18" name="sd-tab-set-18" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-18">
+<label class="sd-tab-label" for="sd-tab-item-18">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Keeps any records, but removes from dataset</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">delete_entries</span><span class="p">([</span><span class="s1">&#39;carbon monoxide&#39;</span><span class="p">])</span>
@@ -954,7 +951,7 @@ However, datasets have convenient methods for management, which use entry and sp
 <a class="reference internal" href="records/base.html#qcportal.dataset_models.BaseDataset.remove_records" title="qcportal.dataset_models.BaseDataset.remove_records"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_records()</span></code></a>.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-19" name="sd-tab-set-19" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-19">
+<label class="sd-tab-label" for="sd-tab-item-19">
 PYTHON</label><div class="sd-tab-content docutils">
 <div class="highlight-py3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Reset carbon monoxide records</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">reset_records</span><span class="p">(</span><span class="n">entry_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;carbon monoxide&#39;</span><span class="p">])</span>
@@ -975,7 +972,7 @@ PYTHON</label><div class="sd-tab-content docutils">
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1054,8 +1051,8 @@ PYTHON</label><div class="sd-tab-content docutils">
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1096,7 +1093,7 @@ PYTHON</label><div class="sd-tab-content docutils">
         
 
         <p class="theme-version">
-        Built with a customized <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+        Built with a customized <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
         </p>
 
     </div>
