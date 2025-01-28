@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; QCArchive 0.15.7.post1478+ged9cf7c0 documentation</title>
+    <title>Index &#8212; QCArchive 0.15.7.post1678+g43f985ed documentation</title>
   
   
   
@@ -15,31 +15,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=6f1775e9" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=aca05e7c"></script>
+    <script src="_static/documentation_options.js?v=d1844718"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -50,6 +53,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.15.7.post1678+g43f985ed" />
   </head>
   
   
@@ -65,19 +69,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -85,7 +78,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +85,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,7 +95,7 @@
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -112,6 +104,8 @@
     
       <div class="navbar-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="index.html">
@@ -126,7 +120,7 @@
     
     
     <img src="_static/qcarchive_logo.svg" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/qcarchive_logo_inverted.svg" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/qcarchive_logo_inverted.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
     <p class="title logo__title">QCArchive</p>
@@ -140,64 +134,66 @@
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
-<nav class="navbar-nav">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="quickstart/index.html">
     Quickstart
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="overview/index.html">
     Overview
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="user_guide/index.html">
     User Guide
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="release_notes.html">
     Release Notes
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="admin_guide/index.html">
     Admin Guide
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="web_api/index.html">
     Web API
   </a>
 </li>
 
-            <li class="nav-item dropdown pst-header-nav-item">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-<li class="nav-item ">
+<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="developer_guide/index.html">
     Developer Guide
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class=" ">
   <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
     MolSSI
   </a>
@@ -217,31 +213,23 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
-        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+        <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -252,7 +240,7 @@ document.write(`
           
           
           
-          <a href="https://github.com/MolSSI/QCFractal" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+          <a href="https://github.com/MolSSI/QCFractal" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -264,15 +252,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -289,7 +273,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -301,59 +286,59 @@ document.write(`
           
           
             <div class="navbar-item">
-<nav class="navbar-nav">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="quickstart/index.html">
     Quickstart
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="overview/index.html">
     Overview
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="user_guide/index.html">
     User Guide
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="release_notes.html">
     Release Notes
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="admin_guide/index.html">
     Admin Guide
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="web_api/index.html">
     Web API
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="developer_guide/index.html">
     Developer Guide
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-external" href="https://molssi.org">
     MolSSI
   </a>
@@ -371,17 +356,13 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
-          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+          <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -392,7 +373,7 @@ document.write(`
           
           
           
-          <a href="https://github.com/MolSSI/QCFractal" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+          <a href="https://github.com/MolSSI/QCFractal" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,9 +384,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -491,10 +477,10 @@ document.write(`
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.add_user">add_user() (PortalClient method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobQueryFilters.added_after">added_after (InternalJobQueryFilters attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobQueryFilters.added_before">added_before (InternalJobQueryFilters attribute)</a>
 </li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.added_date">added_date (InternalJob attribute)</a>
@@ -525,6 +511,10 @@ document.write(`
 </li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.assert_online">assert_online() (BaseDataset method)</a>
 </li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.attachments">attachments (BaseDataset property)</a>
+</li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.attachments_">attachments_ (BaseDataset attribute)</a>
+</li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.auto_fetch_missing">auto_fetch_missing (BaseDataset attribute)</a>
 </li>
       <li><a href="overview/snowflake.html#qcfractal.snowflake.FractalSnowflake.await_results">await_results() (FractalSnowflake method)</a>
@@ -535,6 +525,8 @@ document.write(`
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.background_submit">background_submit() (BaseDataset method)</a>
+</li>
       <li><a href="user_guide/records/singlepoint.html#qcportal.singlepoint.QCSpecification.basis">basis (QCSpecification attribute)</a>
 </li>
       <li><a href="admin_guide/managers/index.html#qcfractalcompute.config.LocalExecutorConfig.bind_address">bind_address (LocalExecutorConfig attribute)</a>
@@ -552,6 +544,8 @@ document.write(`
       <li><a href="user_guide/records/base.html#qcportal.record_models.PriorityEnum.bit_count">bit_count() (PriorityEnum method)</a>
 </li>
       <li><a href="user_guide/records/base.html#qcportal.record_models.PriorityEnum.bit_length">bit_length() (PriorityEnum method)</a>
+</li>
+      <li><a href="user_guide/records/manybody.html#qcportal.manybody.ManybodySpecification.bsse_correction">bsse_correction (ManybodySpecification attribute)</a>
 </li>
       <li><a href="admin_guide/managers/index.html#qcfractalcompute.config.LSFExecutorConfig.bsub_redirection">bsub_redirection (LSFExecutorConfig attribute)</a>
 </li>
@@ -601,6 +595,24 @@ document.write(`
         <li><a href="user_guide/metadata.html#qcportal.metadata_models.InsertMetadata.check_all_indices">(InsertMetadata class method)</a>
 </li>
         <li><a href="user_guide/metadata.html#qcportal.metadata_models.UpdateMetadata.check_all_indices">(UpdateMetadata class method)</a>
+</li>
+      </ul></li>
+      <li><a href="user_guide/records/base.html#qcportal.record_models.BaseRecord.children_errors">children_errors (BaseRecord property)</a>
+
+      <ul>
+        <li><a href="user_guide/records/gridoptimization.html#qcportal.gridoptimization.GridoptimizationRecord.children_errors">(GridoptimizationRecord property)</a>
+</li>
+        <li><a href="user_guide/records/manybody.html#qcportal.manybody.ManybodyRecord.children_errors">(ManybodyRecord property)</a>
+</li>
+        <li><a href="user_guide/records/neb.html#qcportal.neb.NEBRecord.children_errors">(NEBRecord property)</a>
+</li>
+        <li><a href="user_guide/records/optimization.html#qcportal.optimization.OptimizationRecord.children_errors">(OptimizationRecord property)</a>
+</li>
+        <li><a href="user_guide/records/reaction.html#qcportal.reaction.ReactionRecord.children_errors">(ReactionRecord property)</a>
+</li>
+        <li><a href="user_guide/records/singlepoint.html#qcportal.singlepoint.SinglepointRecord.children_errors">(SinglepointRecord property)</a>
+</li>
+        <li><a href="user_guide/records/torsiondrive.html#qcportal.torsiondrive.TorsiondriveRecord.children_errors">(TorsiondriveRecord property)</a>
 </li>
       </ul></li>
       <li><a href="user_guide/records/base.html#qcportal.record_models.BaseRecord.children_status">children_status (BaseRecord property)</a>
@@ -719,6 +731,8 @@ document.write(`
 </li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.contributed_values">contributed_values (BaseDataset property)</a>
 </li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.contributed_values_">contributed_values_ (BaseDataset attribute)</a>
+</li>
       <li><a href="admin_guide/managers/index.html#qcfractalcompute.config.LocalExecutorConfig.cores_per_worker">cores_per_worker (LocalExecutorConfig attribute)</a>
 
       <ul>
@@ -736,6 +750,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.create_dataset_view">create_dataset_view() (PortalClient method)</a>
+</li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.create_view">create_view() (BaseDataset method)</a>
 </li>
       <li><a href="user_guide/records/base.html#qcportal.record_models.BaseRecord.created_on">created_on (BaseRecord attribute)</a>
 
@@ -773,6 +789,8 @@ document.write(`
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.delete_access_log">delete_access_log() (PortalClient method)</a>
 </li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.delete_attachment">delete_attachment() (BaseDataset method)</a>
+</li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.delete_dataset">delete_dataset() (PortalClient method)</a>
 </li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.delete_entries">delete_entries() (BaseDataset method)</a>
@@ -791,10 +809,10 @@ document.write(`
 </li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.delete_specification">delete_specification() (BaseDataset method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.delete_user">delete_user() (PortalClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="user_guide/records/base.html#qcportal.record_models.RecordStatusEnum.deleted">deleted (RecordStatusEnum attribute)</a>
 </li>
       <li><a href="user_guide/metadata.html#qcportal.metadata_models.DeleteMetadata.deleted_idx">deleted_idx (DeleteMetadata attribute)</a>
@@ -819,6 +837,12 @@ document.write(`
         <li><a href="user_guide/metadata.html#qcportal.metadata_models.UpdateMetadata.dict">(UpdateMetadata method)</a>
 </li>
       </ul></li>
+      <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.download_external_file">download_external_file() (PortalClient method)</a>
+</li>
+      <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.download_file">download_file() (PortalClient method)</a>
+</li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.download_view">download_view() (BaseDataset method)</a>
+</li>
       <li><a href="user_guide/records/singlepoint.html#qcportal.singlepoint.QCSpecification.driver">driver (QCSpecification attribute)</a>
 </li>
       <li><a href="overview/snowflake.html#qcfractal.snowflake.FractalSnowflake.dump_database">dump_database() (FractalSnowflake method)</a>
@@ -997,6 +1021,8 @@ document.write(`
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.fetch_attachments">fetch_attachments() (BaseDataset method)</a>
+</li>
       <li><a href="user_guide/records/base.html#qcportal.record_models.BaseRecord.fetch_children">fetch_children() (BaseRecord method)</a>
 
       <ul>
@@ -1087,6 +1113,8 @@ document.write(`
 </li>
       <li><a href="user_guide/records/base.html#qcportal.record_models.PriorityEnum.from_bytes">from_bytes() (PriorityEnum method)</a>
 </li>
+      <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.from_env">from_env() (PortalClient class method)</a>
+</li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.from_file">from_file() (PortalClient class method)</a>
 </li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.function">function (InternalJob attribute)</a>
@@ -1117,8 +1145,12 @@ document.write(`
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.get_group">get_group() (PortalClient method)</a>
 </li>
-      <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.get_internal_job">get_internal_job() (PortalClient method)</a>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.get_internal_job">get_internal_job() (BaseDataset method)</a>
+
+      <ul>
+        <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.get_internal_job">(PortalClient method)</a>
 </li>
+      </ul></li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.get_managers">get_managers() (PortalClient method)</a>
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.get_manybodys">get_manybodys() (PortalClient method)</a>
@@ -1453,6 +1485,8 @@ document.write(`
 </li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobQueryFilters.last_updated_before">last_updated_before (InternalJobQueryFilters attribute)</a>
 </li>
+      <li><a href="user_guide/records/manybody.html#qcportal.manybody.ManybodySpecification.levels">levels (ManybodySpecification attribute)</a>
+</li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobQueryFilters.limit">limit (InternalJobQueryFilters attribute)</a>
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.list_datasets">list_datasets() (PortalClient method)</a>
@@ -1461,11 +1495,15 @@ document.write(`
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.list_groups">list_groups() (PortalClient method)</a>
 </li>
-      <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.list_roles">list_roles() (PortalClient method)</a>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.list_internal_jobs">list_internal_jobs() (BaseDataset method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.list_roles">list_roles() (PortalClient method)</a>
+</li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.list_users">list_users() (PortalClient method)</a>
+</li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.list_views">list_views() (BaseDataset method)</a>
 </li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobStatusEnum.ljust">ljust() (InternalJobStatusEnum method)</a>
 
@@ -1575,6 +1613,8 @@ document.write(`
         <li><a href="user_guide/records/torsiondrive.html#qcportal.torsiondrive.TorsiondriveRecord.modified_on">(TorsiondriveRecord attribute)</a>
 </li>
       </ul></li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.modify_entries">modify_entries() (BaseDataset method)</a>
+</li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.modify_molecule">modify_molecule() (PortalClient method)</a>
 </li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.modify_records">modify_records() (BaseDataset method)</a>
@@ -1806,6 +1846,8 @@ document.write(`
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient">PortalClient (class in qcportal.client)</a>
 </li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.preload_cache">preload_cache() (BaseDataset method)</a>
+</li>
       <li><a href="user_guide/records/gridoptimization.html#qcportal.gridoptimization.GridoptimizationRecord.preoptimization">preoptimization (GridoptimizationRecord property)</a>
 </li>
       <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.print_datasets_table">print_datasets_table() (PortalClient method)</a>
@@ -1837,6 +1879,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.progress">progress (InternalJob attribute)</a>
+</li>
+      <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.progress_description">progress_description (InternalJob attribute)</a>
 </li>
       <li><a href="admin_guide/managers/index.html#qcfractalcompute.config.LSFExecutorConfig.project">project (LSFExecutorConfig attribute)</a>
 </li>
@@ -1880,9 +1924,11 @@ document.write(`
         <li><a href="user_guide/records/torsiondrive.html#qcportal.torsiondrive.TorsiondriveRecord.properties">(TorsiondriveRecord attribute)</a>
 </li>
       </ul></li>
-      <li><a href="user_guide/records/optimization.html#qcportal.optimization.OptimizationSpecification.protocols">protocols (OptimizationSpecification attribute)</a>
+      <li><a href="user_guide/records/manybody.html#qcportal.manybody.ManybodySpecification.protocols">protocols (ManybodySpecification attribute)</a>
 
       <ul>
+        <li><a href="user_guide/records/optimization.html#qcportal.optimization.OptimizationSpecification.protocols">(OptimizationSpecification attribute)</a>
+</li>
         <li><a href="user_guide/records/singlepoint.html#qcportal.singlepoint.QCSpecification.protocols">(QCSpecification attribute)</a>
 </li>
       </ul></li>
@@ -2013,6 +2059,8 @@ document.write(`
 </li>
       <li><a href="user_guide/records/base.html#qcportal.record_models.RecordStatusEnum">RecordStatusEnum (class in qcportal.record_models)</a>
 </li>
+      <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.refresh">refresh() (InternalJob method)</a>
+</li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.refresh_cache">refresh_cache() (BaseDataset method)</a>
 </li>
       <li><a href="user_guide/metadata.html#qcportal.metadata_models.TaskReturnMetadata.rejected_ids">rejected_ids (TaskReturnMetadata property)</a>
@@ -2036,6 +2084,8 @@ document.write(`
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.rename_entries">rename_entries() (BaseDataset method)</a>
 </li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.rename_specification">rename_specification() (BaseDataset method)</a>
+</li>
+      <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.repeat_delay">repeat_delay (InternalJob attribute)</a>
 </li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobStatusEnum.replace">replace() (InternalJobStatusEnum method)</a>
 
@@ -2071,8 +2121,6 @@ document.write(`
         <li><a href="user_guide/records/neb.html#qcportal.neb.NEBRecord.result">(NEBRecord property)</a>
 </li>
       </ul></li>
-      <li><a href="user_guide/records/manybody.html#qcportal.manybody.ManybodyRecord.results">results (ManybodyRecord attribute)</a>
-</li>
       <li><a href="user_guide/records/singlepoint.html#qcportal.singlepoint.SinglepointRecord.return_result">return_result (SinglepointRecord property)</a>
 </li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobStatusEnum.rfind">rfind() (InternalJobStatusEnum method)</a>
@@ -2155,6 +2203,8 @@ document.write(`
         <li><a href="admin_guide/managers/index.html#qcfractalcompute.config.TorqueExecutorConfig.scratch_directory">(TorqueExecutorConfig attribute)</a>
 </li>
       </ul></li>
+      <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.serial_group">serial_group (InternalJob attribute)</a>
+</li>
       <li><a href="user_guide/records/base.html#qcportal.record_models.BaseRecord.service">service (BaseRecord property)</a>
 
       <ul>
@@ -2215,11 +2265,9 @@ document.write(`
 </li>
       <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.set_visibility">set_visibility() (BaseDataset method)</a>
 </li>
-      <li><a href="user_guide/records/manybody.html#qcportal.manybody.ManybodySpecification.singlepoint_specification">singlepoint_specification (ManybodySpecification attribute)</a>
+      <li><a href="user_guide/records/neb.html#qcportal.neb.NEBSpecification.singlepoint_specification">singlepoint_specification (NEBSpecification attribute)</a>
 
       <ul>
-        <li><a href="user_guide/records/neb.html#qcportal.neb.NEBSpecification.singlepoint_specification">(NEBSpecification attribute)</a>
-</li>
         <li><a href="user_guide/records/reaction.html#qcportal.reaction.ReactionSpecification.singlepoint_specification">(ReactionSpecification attribute)</a>
 </li>
       </ul></li>
@@ -2519,10 +2567,10 @@ document.write(`
         <li><a href="user_guide/qcportal_reference.html#qcportal.client.PortalClient.uninvalidate_records">(PortalClient method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="user_guide/metadata.html#qcportal.metadata_models.UpdateMetadata.updated_idx">updated_idx (UpdateMetadata attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="user_guide/metadata.html#qcportal.metadata_models.UpdateMetadata">UpdateMetadata (class in qcportal.metadata_models)</a>
 </li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJobStatusEnum.upper">upper() (InternalJobStatusEnum method)</a>
@@ -2531,6 +2579,8 @@ document.write(`
         <li><a href="user_guide/records/base.html#qcportal.record_models.RecordStatusEnum.upper">(RecordStatusEnum method)</a>
 </li>
       </ul></li>
+      <li><a href="user_guide/records/base.html#qcportal.dataset_models.BaseDataset.use_view_cache">use_view_cache() (BaseDataset method)</a>
+</li>
       <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.user">user (InternalJob attribute)</a>
 
       <ul>
@@ -2597,6 +2647,8 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="admin_guide/monitoring.html#qcportal.internal_jobs.models.InternalJob.watch">watch() (InternalJob method)</a>
+</li>
       <li><a href="user_guide/records/singlepoint.html#qcportal.singlepoint.SinglepointRecord.wavefunction">wavefunction (SinglepointRecord property)</a>
 </li>
       <li><a href="user_guide/records/singlepoint.html#qcportal.singlepoint.SinglepointRecord.wavefunction_">wavefunction_ (SinglepointRecord attribute)</a>
@@ -2663,8 +2715,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -2700,12 +2752,12 @@ document.write(`
  
         
         <p class="sphinx-version">
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br>
         </p>
         
 
         <p class="theme-version">
-        Built with a customized <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+        Built with a customized <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
         </p>
 
     </div>
