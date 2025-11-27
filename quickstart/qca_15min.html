@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>QCArchive in 15 minutes &#8212; QCArchive 0.15.7.post1679+g86d79806 documentation</title>
+    <title>QCArchive in 15 minutes &#8212; QCArchive documentation</title>
   
   
   
@@ -31,11 +31,10 @@
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6f1775e9" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=68b739ae" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -43,8 +42,8 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=087ab6b8"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=0b474594"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
@@ -56,7 +55,7 @@
     <link rel="prev" title="QCArchive Quickstart" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.15.7.post1679+g86d79806" />
+  <meta name="docsearch:version" content="0.15.7.post2056+g41b2e99b" />
   </head>
   
   
@@ -490,7 +489,7 @@ To work with the QCArchive demo server, enter <code class="docutils literal notr
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "ded954f6357f4f2e87084d2d3d3e7b66"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PortalClient(server_name=&#39;MolSSI QCFractal Demo Server&#39;, address=&#39;https://qcademo.molssi.org/&#39;, username=&#39;None&#39;)
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "2cd3527bba9e47bb853384fa8164f8ce"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PortalClient(server_name=&#39;MolSSI QCFractal Demo Server&#39;, address=&#39;https://qcademo.molssi.org/&#39;, username=&#39;None&#39;)
 </pre></div>
 </div>
 </div>
@@ -914,34 +913,32 @@ We retrieve these using <code class="docutils literal notranslate"><span class="
 <span class="g g-Whitespace">      </span><span class="mi">7</span>                           <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QCArchiveUsername&quot;</span><span class="p">),</span> 
 <span class="g g-Whitespace">      </span><span class="mi">8</span>                           <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QCArchivePWD&quot;</span><span class="p">))</span>
 
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:152,</span> in <span class="ni">PortalClient.__init__</span><span class="nt">(self, address, username, password, verify, show_motd, cache_dir, cache_max_size)</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span>     <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span>     <span class="n">cache_max_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">129</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span><span class="sd">     Parameters</span>
-<span class="g g-Whitespace">    </span><span class="mi">132</span><span class="sd">     ----------</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span><span class="sd">         Maximum size of the cache directory</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">152</span>     <span class="n">PortalClientBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">show_motd</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">153</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;PortalClient&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">154</span>     <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">PortalCache</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">,</span> <span class="n">cache_max_size</span><span class="p">)</span>
+<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:166,</span> in <span class="ni">PortalClient.__init__</span><span class="nt">(self, address, username, password, verify, show_motd, cache_dir, cache_max_size)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>     <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">142</span>     <span class="n">cache_max_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span><span class="sd">     Parameters</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span><span class="sd">     ----------</span>
+<span class="sd">   (...)    163         Maximum size of the cache directory</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">166</span>     <span class="n">PortalClientBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">verify</span><span class="p">,</span> <span class="n">show_motd</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;PortalClient&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>     <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">PortalCache</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">,</span> <span class="n">cache_max_size</span><span class="p">)</span>
 
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:155,</span> in <span class="ni">PortalClientBase.__init__</span><span class="nt">(self, address, username, password, verify, show_motd, information_endpoint)</span>
-<span class="g g-Whitespace">    </span><span class="mi">153</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="n">username</span>
-<span class="g g-Whitespace">    </span><span class="mi">154</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_password</span> <span class="o">=</span> <span class="n">password</span>
-<span class="ne">--&gt; </span><span class="mi">155</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_get_JWT_token</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">156</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">157</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:163,</span> in <span class="ni">PortalClientBase.__init__</span><span class="nt">(self, address, username, password, verify, show_motd, information_endpoint)</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="n">username</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_password</span> <span class="o">=</span> <span class="n">password</span>
+<span class="ne">--&gt; </span><span class="mi">163</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_get_JWT_token</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:318,</span> in <span class="ni">PortalClientBase._get_JWT_token</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">316</span> <span class="k">except</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">317</span>     <span class="n">msg</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">reason</span>
-<span class="ne">--&gt; </span><span class="mi">318</span> <span class="k">raise</span> <span class="n">AuthenticationFailure</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="nn">File ~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:392,</span> in <span class="ni">PortalClientBase._get_JWT_token</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span> <span class="k">except</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span>     <span class="n">msg</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">reason</span>
+<span class="ne">--&gt; </span><span class="mi">392</span> <span class="k">raise</span> <span class="n">AuthenticationFailure</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 <span class="ne">AuthenticationFailure</span>: Username is empty
 </pre></div>
@@ -1158,7 +1155,7 @@ For more information on dataset construction, see the Dataset Quickstart.</p>
  
         
         <p class="sphinx-version">
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br>
         </p>
         
 

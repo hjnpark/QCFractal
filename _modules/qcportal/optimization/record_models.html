@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qcportal.optimization.record_models &#8212; QCArchive 0.15.7.post1679+g86d79806 documentation</title>
+    <title>qcportal.optimization.record_models &#8212; QCArchive documentation</title>
   
   
   
@@ -30,11 +30,10 @@
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=6f1775e9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=68b739ae" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -42,8 +41,8 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=087ab6b8"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/documentation_options.js?v=0b474594"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
@@ -53,7 +52,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.15.7.post1679+g86d79806" />
+  <meta name="docsearch:version" content="0.15.7.post2056+g41b2e99b" />
   </head>
   
   
@@ -441,30 +440,65 @@
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.v1</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span><span class="p">,</span> <span class="n">validator</span><span class="p">,</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">PrivateAttr</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span><span class="p">,</span> <span class="n">validator</span><span class="p">,</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">PrivateAttr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.v1</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span><span class="p">,</span> <span class="n">validator</span><span class="p">,</span> <span class="n">Extra</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qcelemental.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Molecule</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qcelemental.models.procedures</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">OptimizationResult</span><span class="p">,</span>
-    <span class="n">OptimizationProtocols</span><span class="p">,</span>
     <span class="n">QCInputSpecification</span><span class="p">,</span>
-    <span class="n">Model</span> <span class="k">as</span> <span class="n">AtomicResultModel</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.record_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRecord</span><span class="p">,</span> <span class="n">RecordAddBodyBase</span><span class="p">,</span> <span class="n">RecordQueryFilters</span><span class="p">,</span> <span class="n">RecordStatusEnum</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_included</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.base_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RestModelBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_records_with_cache</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.singlepoint</span><span class="w"> </span><span class="kn">import</span> <span class="n">SinglepointProtocols</span><span class="p">,</span> <span class="n">SinglepointRecord</span><span class="p">,</span> <span class="n">QCSpecification</span><span class="p">,</span> <span class="n">SinglepointDriver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.record_models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseRecord</span><span class="p">,</span>
+    <span class="n">RecordAddBodyBase</span><span class="p">,</span>
+    <span class="n">RecordQueryFilters</span><span class="p">,</span>
+    <span class="n">RecordStatusEnum</span><span class="p">,</span>
+    <span class="n">compare_base_records</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.singlepoint</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SinglepointProtocols</span><span class="p">,</span>
+    <span class="n">SinglepointRecord</span><span class="p">,</span>
+    <span class="n">QCSpecification</span><span class="p">,</span>
+    <span class="n">SinglepointDriver</span><span class="p">,</span>
+    <span class="n">compare_singlepoint_records</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qcportal.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_included</span>
+
+
+<div class="viewcode-block" id="TrajectoryProtocolEnum">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.TrajectoryProtocolEnum">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TrajectoryProtocolEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Which gradient evaluations to keep in an optimization trajectory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">all</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
+    <span class="n">initial_and_final</span> <span class="o">=</span> <span class="s2">&quot;initial_and_final&quot;</span>
+    <span class="n">final</span> <span class="o">=</span> <span class="s2">&quot;final&quot;</span>
+    <span class="n">none</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="OptimizationProtocols">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationProtocols">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OptimizationProtocols</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Protocols regarding the manipulation of a Optimization output data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">trajectory</span><span class="p">:</span> <span class="n">TrajectoryProtocolEnum</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">TrajectoryProtocolEnum</span><span class="o">.</span><span class="n">all</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">TrajectoryProtocolEnum</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptimizationSpecification">
-<a class="viewcode-back" href="../../../user_guide/records/optimization.html#qcportal.optimization.OptimizationSpecification">[docs]</a>
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationSpecification">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">OptimizationSpecification</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An OptimizationSpecification as stored on the server</span>
@@ -473,7 +507,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="OptimizationSpecification.Config">
-<a class="viewcode-back" href="../../../user_guide/records/optimization.html#qcportal.optimization.OptimizationSpecification.Config">[docs]</a>
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationSpecification.Config">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span></div>
 
@@ -484,7 +518,7 @@
     <span class="n">protocols</span><span class="p">:</span> <span class="n">OptimizationProtocols</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">OptimizationProtocols</span><span class="p">())</span>
 
 <div class="viewcode-block" id="OptimizationSpecification.force_qcspec">
-<a class="viewcode-back" href="../../../user_guide/records/optimization.html#qcportal.optimization.OptimizationSpecification.force_qcspec">[docs]</a>
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationSpecification.force_qcspec">[docs]</a>
     <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;qc_specification&quot;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">force_qcspec</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">QCSpecification</span><span class="p">):</span>
@@ -498,7 +532,7 @@
 
 
 <div class="viewcode-block" id="OptimizationRecord">
-<a class="viewcode-back" href="../../../user_guide/records/optimization.html#qcportal.optimization.OptimizationRecord">[docs]</a>
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationRecord">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">OptimizationRecord</span><span class="p">(</span><span class="n">BaseRecord</span><span class="p">):</span>
     <span class="n">record_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;optimization&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;optimization&quot;</span>
     <span class="n">specification</span><span class="p">:</span> <span class="n">OptimizationSpecification</span>
@@ -513,10 +547,11 @@
     <span class="n">final_molecule_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Molecule</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;final_molecule&quot;</span><span class="p">)</span>
     <span class="n">trajectory_ids_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;trajectory_ids&quot;</span><span class="p">)</span>
 
-    <span class="c1">########################################</span>
-    <span class="c1"># Caches</span>
-    <span class="c1">########################################</span>
-    <span class="n">_trajectory_records</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="c1">##############################################</span>
+    <span class="c1"># Fields with child records</span>
+    <span class="c1"># (generally not received from the server)</span>
+    <span class="c1">##############################################</span>
+    <span class="n">trajectory_records_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;trajectory_records&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_fetch_children_multi</span><span class="p">(</span>
@@ -531,6 +566,9 @@
         <span class="k">assert</span> <span class="n">records</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">OptimizationRecord</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">records</span><span class="p">)</span>
 
+        <span class="n">base_url_prefix</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">records</span><span class="p">))</span><span class="o">.</span><span class="n">_base_url_prefix</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">_base_url_prefix</span> <span class="o">==</span> <span class="n">base_url_prefix</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">is_included</span><span class="p">(</span><span class="s2">&quot;trajectory&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="c1"># collect all singlepoint ids for all optimizations</span>
             <span class="n">sp_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -540,25 +578,31 @@
 
             <span class="n">sp_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sp_ids</span><span class="p">)</span>
             <span class="n">sp_records</span> <span class="o">=</span> <span class="n">get_records_with_cache</span><span class="p">(</span>
-                <span class="n">client</span><span class="p">,</span> <span class="n">record_cache</span><span class="p">,</span> <span class="n">SinglepointRecord</span><span class="p">,</span> <span class="n">sp_ids</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="n">include</span><span class="p">,</span> <span class="n">force_fetch</span><span class="o">=</span><span class="n">force_fetch</span>
+                <span class="n">client</span><span class="p">,</span>
+                <span class="n">base_url_prefix</span><span class="p">,</span>
+                <span class="n">record_cache</span><span class="p">,</span>
+                <span class="n">SinglepointRecord</span><span class="p">,</span>
+                <span class="n">sp_ids</span><span class="p">,</span>
+                <span class="n">include</span><span class="o">=</span><span class="n">include</span><span class="p">,</span>
+                <span class="n">force_fetch</span><span class="o">=</span><span class="n">force_fetch</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">sp_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">sp_records</span><span class="p">}</span>
 
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">trajectory_ids_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">r</span><span class="o">.</span><span class="n">_trajectory_records</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">r</span><span class="o">.</span><span class="n">_trajectory_records</span> <span class="o">=</span> <span class="p">[</span><span class="n">sp_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">trajectory_ids_</span><span class="p">]</span>
-                <span class="n">r</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">_client</span><span class="p">)</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="o">=</span> <span class="p">[</span><span class="n">sp_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">trajectory_ids_</span><span class="p">]</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">base_url_prefix</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OptimizationRecord.propagate_client">
-<a class="viewcode-back" href="../../../user_guide/records/optimization.html#qcportal.optimization.OptimizationRecord.propagate_client">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">propagate_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
-        <span class="n">BaseRecord</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationRecord.propagate_client">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">propagate_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">base_url_prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="n">BaseRecord</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">base_url_prefix</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_records</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_records</span><span class="p">:</span>
-                <span class="n">sp</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="n">client</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_records_</span><span class="p">:</span>
+                <span class="n">sp</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">base_url_prefix</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_fetch_initial_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -581,6 +625,12 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">fetch_children</span><span class="p">([</span><span class="s2">&quot;trajectory&quot;</span><span class="p">])</span>
 
+<div class="viewcode-block" id="OptimizationRecord.get_cache_dict">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationRecord.get_cache_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_cache_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;trajectory_records_&quot;</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">initial_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Molecule</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_molecule_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -595,15 +645,15 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">trajectory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SinglepointRecord</span><span class="p">]]:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_records</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_trajectory</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_records</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_records_</span>
 
 <div class="viewcode-block" id="OptimizationRecord.trajectory_element">
-<a class="viewcode-back" href="../../../user_guide/records/optimization.html#qcportal.optimization.OptimizationRecord.trajectory_element">[docs]</a>
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationRecord.trajectory_element">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">trajectory_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trajectory_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SinglepointRecord</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_records</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trajectory_records</span><span class="p">[</span><span class="n">trajectory_index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_records_</span><span class="p">[</span><span class="n">trajectory_index</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_assert_online</span><span class="p">()</span>
 
@@ -617,14 +667,14 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_ids_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">traj_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory_ids_</span><span class="p">[</span><span class="n">trajectory_index</span><span class="p">]</span>
                 <span class="n">sp_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_child_records</span><span class="p">([</span><span class="n">traj_id</span><span class="p">],</span> <span class="n">SinglepointRecord</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">sp_rec</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">)</span>
+                <span class="n">sp_rec</span><span class="o">.</span><span class="n">propagate_client</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url_prefix</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">sp_rec</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot find trajectory for record </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptimizationRecord.to_qcschema_result">
-<a class="viewcode-back" href="../../../user_guide/records/optimization.html#qcportal.optimization.OptimizationRecord.to_qcschema_result">[docs]</a>
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationRecord.to_qcschema_result">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">to_qcschema_result</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptimizationResult</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">RecordStatusEnum</span><span class="o">.</span><span class="n">complete</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot create QCSchema result from record with status </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -649,7 +699,7 @@
             <span class="n">keywords</span><span class="o">=</span><span class="n">new_keywords</span><span class="p">,</span>
             <span class="n">input_specification</span><span class="o">=</span><span class="n">QCInputSpecification</span><span class="p">(</span>
                 <span class="n">driver</span><span class="o">=</span><span class="n">SinglepointDriver</span><span class="o">.</span><span class="n">gradient</span><span class="p">,</span>  <span class="c1"># forced</span>
-                <span class="n">model</span><span class="o">=</span><span class="n">AtomicResultModel</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
                     <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">specification</span><span class="o">.</span><span class="n">qc_specification</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
                     <span class="n">basis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">specification</span><span class="o">.</span><span class="n">qc_specification</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span>
                 <span class="p">),</span>
@@ -665,6 +715,8 @@
 
 
 
+<div class="viewcode-block" id="OptimizationQueryFilters">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationQueryFilters">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">OptimizationQueryFilters</span><span class="p">(</span><span class="n">RecordQueryFilters</span><span class="p">):</span>
     <span class="n">program</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">qc_program</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">constr</span><span class="p">(</span><span class="n">to_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)]]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -680,12 +732,55 @@
         <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<span class="k">class</span><span class="w"> </span><span class="nc">OptimizationAddBody</span><span class="p">(</span><span class="n">RecordAddBodyBase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OptimizationInput">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationInput">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OptimizationInput</span><span class="p">(</span><span class="n">RestModelBase</span><span class="p">):</span>
+    <span class="n">record_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;optimization&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;optimization&quot;</span>
     <span class="n">specification</span><span class="p">:</span> <span class="n">OptimizationSpecification</span>
-    <span class="n">initial_molecules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Molecule</span><span class="p">]]</span>
+    <span class="n">initial_molecule</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Molecule</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="OptimizationMultiInput">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationMultiInput">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OptimizationMultiInput</span><span class="p">(</span><span class="n">RestModelBase</span><span class="p">):</span>
+    <span class="n">specification</span><span class="p">:</span> <span class="n">OptimizationSpecification</span>
+    <span class="n">initial_molecules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Molecule</span><span class="p">]]</span></div>
+
+
+
+<div class="viewcode-block" id="OptimizationAddBody">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.OptimizationAddBody">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OptimizationAddBody</span><span class="p">(</span><span class="n">RecordAddBodyBase</span><span class="p">,</span> <span class="n">OptimizationMultiInput</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="compare_optimization_records">
+<a class="viewcode-back" href="../../../user_guide/qcportal_reference/records/optimization.html#qcportal.optimization.record_models.compare_optimization_records">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_optimization_records</span><span class="p">(</span><span class="n">record_1</span><span class="p">:</span> <span class="n">OptimizationRecord</span><span class="p">,</span> <span class="n">record_2</span><span class="p">:</span> <span class="n">OptimizationRecord</span><span class="p">):</span>
+    <span class="n">compare_base_records</span><span class="p">(</span><span class="n">record_1</span><span class="p">,</span> <span class="n">record_2</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">record_1</span><span class="o">.</span><span class="n">initial_molecule</span><span class="o">.</span><span class="n">get_hash</span><span class="p">()</span> <span class="o">==</span> <span class="n">record_2</span><span class="o">.</span><span class="n">initial_molecule</span><span class="o">.</span><span class="n">get_hash</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">record_1</span><span class="o">.</span><span class="n">final_molecule_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">record_2</span><span class="o">.</span><span class="n">final_molecule_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">record_1</span><span class="o">.</span><span class="n">final_molecule_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">record_1</span><span class="o">.</span><span class="n">final_molecule</span><span class="o">.</span><span class="n">get_hash</span><span class="p">()</span> <span class="o">==</span> <span class="n">record_2</span><span class="o">.</span><span class="n">final_molecule</span><span class="o">.</span><span class="n">get_hash</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="n">record_1</span><span class="o">.</span><span class="n">energies</span> <span class="o">==</span> <span class="n">record_2</span><span class="o">.</span><span class="n">energies</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">record_1</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">record_2</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">record_1</span><span class="o">.</span><span class="n">trajectory_ids_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">record_2</span><span class="o">.</span><span class="n">trajectory_ids_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">record_1</span><span class="o">.</span><span class="n">trajectory_records_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">record_1</span><span class="o">.</span><span class="n">trajectory_records_</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">record_2</span><span class="o">.</span><span class="n">trajectory_records_</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">record_1</span><span class="o">.</span><span class="n">trajectory_records_</span><span class="p">,</span> <span class="n">record_2</span><span class="o">.</span><span class="n">trajectory_records_</span><span class="p">):</span>
+            <span class="n">compare_singlepoint_records</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span></div>
+
 </pre></div>
 
                 </article>
@@ -752,7 +847,7 @@
  
         
         <p class="sphinx-version">
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br>
         </p>
         
 

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>QCFractal Snowflake &#8212; QCArchive 0.15.7.post1679+g86d79806 documentation</title>
+    <title>QCFractal Snowflake &#8212; QCArchive documentation</title>
   
   
   
@@ -31,11 +31,10 @@
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6f1775e9" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=68b739ae" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -43,8 +42,8 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=087ab6b8"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=0b474594"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
@@ -56,7 +55,7 @@
     <link rel="prev" title="Internal Jobs" href="internal_jobs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.15.7.post1679+g86d79806" />
+  <meta name="docsearch:version" content="0.15.7.post2056+g41b2e99b" />
   </head>
   
   
@@ -496,7 +495,7 @@ used as if it were any other client.</p>
 <h2>Snowflake API<a class="headerlink" href="#snowflake-api" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="qcfractal.snowflake.FractalSnowflake">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FractalSnowflake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qcfractal/snowflake.html#FractalSnowflake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qcfractal.snowflake.FractalSnowflake" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FractalSnowflake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmpdir_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qcfractal/snowflake.html#FractalSnowflake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qcfractal.snowflake.FractalSnowflake" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A temporary, self-contained server</p>
 <p>A snowflake contains the server and compute manager, and can be used to test
@@ -511,6 +510,7 @@ QCFractal/QCPortal, or to experiment.</p>
 <li><p><strong>database_config</strong> (<em>Optional</em><em>[</em><em>DatabaseConfig</em><em>]</em>)</p></li>
 <li><p><strong>extra_config</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p></li>
 <li><p><strong>host</strong> (<em>str</em>)</p></li>
+<li><p><strong>tmpdir_parent</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -523,8 +523,16 @@ QCFractal/QCPortal, or to experiment.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qcfractal.snowflake.FractalSnowflake.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qcfractal/snowflake.html#FractalSnowflake.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qcfractal.snowflake.FractalSnowflake.start" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qcfractal/snowflake.html#FractalSnowflake.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qcfractal.snowflake.FractalSnowflake.start" title="Link to this definition">#</a></dt>
 <dd><p>Starts all the components of the snowflake</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>wait</strong> (<em>bool</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -577,7 +585,7 @@ will be waited for.</p></li>
 <dd><p>Obtain a PortalClient connected to this server</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../user_guide/qcportal_reference.html#qcportal.client.PortalClient" title="qcportal.client.PortalClient"><em>PortalClient</em></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../user_guide/qcportal_reference/clients.html#qcportal.client.PortalClient" title="qcportal.client.PortalClient"><em>PortalClient</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -724,7 +732,7 @@ will be waited for.</p></li>
  
         
         <p class="sphinx-version">
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br>
         </p>
         
 

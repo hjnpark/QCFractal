@@ -1,20 +1,20 @@
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
-  File "/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/nbclient/client.py", line 1319, in execute
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nbclient/client.py", line 1319, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
     return loop.run_until_complete(inner)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
     return future.result()
            ^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -29,43 +29,41 @@ client = ptl.PortalClient("https://qcademo.molssi.org",
 ------------------
 
 
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mAuthenticationFailure[0m                     Traceback (most recent call last)
-Cell [0;32mIn[12], line 6[0m
-[1;32m      3[0m [38;5;28;01mimport[39;00m[38;5;250m [39m[38;5;21;01mqcportal[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[38;5;21;01mptl[39;00m
-[1;32m      4[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01mqcportal[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmolecules[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m Molecule
-[0;32m----> 6[0m client [38;5;241m=[39m [43mptl[49m[38;5;241;43m.[39;49m[43mPortalClient[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mhttps://qcademo.molssi.org[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m
-[1;32m      7[0m [43m                          [49m[43musername[49m[38;5;241;43m=[39;49m[43mos[49m[38;5;241;43m.[39;49m[43menviron[49m[38;5;241;43m.[39;49m[43mget[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mQCArchiveUsername[39;49m[38;5;124;43m"[39;49m[43m)[49m[43m,[49m[43m [49m
-[1;32m      8[0m [43m                          [49m[43mpassword[49m[38;5;241;43m=[39;49m[43mos[49m[38;5;241;43m.[39;49m[43menviron[49m[38;5;241;43m.[39;49m[43mget[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mQCArchivePWD[39;49m[38;5;124;43m"[39;49m[43m)[49m[43m)[49m
+[31m---------------------------------------------------------------------------[39m
+[31mAuthenticationFailure[39m                     Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[12][39m[32m, line 6[39m
+[32m      3[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mqcportal[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mptl[39;00m
+[32m      4[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mqcportal[39;00m[34;01m.[39;00m[34;01mmolecules[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m Molecule
+[32m----> [39m[32m6[39m client = [43mptl[49m[43m.[49m[43mPortalClient[49m[43m([49m[33;43m"[39;49m[33;43mhttps://qcademo.molssi.org[39;49m[33;43m"[39;49m[43m,[49m[43m [49m
+[32m      7[39m [43m                          [49m[43musername[49m[43m=[49m[43mos[49m[43m.[49m[43menviron[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mQCArchiveUsername[39;49m[33;43m"[39;49m[43m)[49m[43m,[49m[43m [49m
+[32m      8[39m [43m                          [49m[43mpassword[49m[43m=[49m[43mos[49m[43m.[49m[43menviron[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mQCArchivePWD[39;49m[33;43m"[39;49m[43m)[49m[43m)[49m
 
-File [0;32m~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:152[0m, in [0;36mPortalClient.__init__[0;34m(self, address, username, password, verify, show_motd, cache_dir, cache_max_size)[0m
-[1;32m    119[0m [38;5;28;01mdef[39;00m[38;5;250m [39m[38;5;21m__init__[39m(
-[1;32m    120[0m     [38;5;28mself[39m,
-[1;32m    121[0m     address: [38;5;28mstr[39m,
-[0;32m   (...)[0m
-[1;32m    128[0m     cache_max_size: [38;5;28mint[39m [38;5;241m=[39m [38;5;241m0[39m,
-[1;32m    129[0m ) [38;5;241m-[39m[38;5;241m>[39m [38;5;28;01mNone[39;00m:
-[1;32m    130[0m [38;5;250m    [39m[38;5;124;03m"""[39;00m
-[1;32m    131[0m [38;5;124;03m    Parameters[39;00m
-[1;32m    132[0m [38;5;124;03m    ----------[39;00m
-[0;32m   (...)[0m
-[1;32m    149[0m [38;5;124;03m        Maximum size of the cache directory[39;00m
-[1;32m    150[0m [38;5;124;03m    """[39;00m
-[0;32m--> 152[0m     [43mPortalClientBase[49m[38;5;241;43m.[39;49m[38;5;21;43m__init__[39;49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43maddress[49m[43m,[49m[43m [49m[43musername[49m[43m,[49m[43m [49m[43mpassword[49m[43m,[49m[43m [49m[43mverify[49m[43m,[49m[43m [49m[43mshow_motd[49m[43m)[49m
-[1;32m    153[0m     [38;5;28mself[39m[38;5;241m.[39m_logger [38;5;241m=[39m logging[38;5;241m.[39mgetLogger([38;5;124m"[39m[38;5;124mPortalClient[39m[38;5;124m"[39m)
-[1;32m    154[0m     [38;5;28mself[39m[38;5;241m.[39mcache [38;5;241m=[39m PortalCache(address, cache_dir, cache_max_size)
+[36mFile [39m[32m~/work/QCFractal/QCFractal/qcportal/qcportal/client.py:166[39m, in [36mPortalClient.__init__[39m[34m(self, address, username, password, verify, show_motd, cache_dir, cache_max_size)[39m
+[32m    133[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34m__init__[39m(
+[32m    134[39m     [38;5;28mself[39m,
+[32m    135[39m     address: [38;5;28mstr[39m,
+[32m   (...)[39m[32m    142[39m     cache_max_size: [38;5;28mint[39m = [32m0[39m,
+[32m    143[39m ) -> [38;5;28;01mNone[39;00m:
+[32m    144[39m [38;5;250m    [39m[33;03m"""[39;00m
+[32m    145[39m [33;03m    Parameters[39;00m
+[32m    146[39m [33;03m    ----------[39;00m
+[32m   (...)[39m[32m    163[39m [33;03m        Maximum size of the cache directory[39;00m
+[32m    164[39m [33;03m    """[39;00m
+[32m--> [39m[32m166[39m     [43mPortalClientBase[49m[43m.[49m[34;43m__init__[39;49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43maddress[49m[43m,[49m[43m [49m[43musername[49m[43m,[49m[43m [49m[43mpassword[49m[43m,[49m[43m [49m[43mverify[49m[43m,[49m[43m [49m[43mshow_motd[49m[43m)[49m
+[32m    167[39m     [38;5;28mself[39m._logger = logging.getLogger([33m"[39m[33mPortalClient[39m[33m"[39m)
+[32m    168[39m     [38;5;28mself[39m.cache = PortalCache(address, cache_dir, cache_max_size)
 
-File [0;32m~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:155[0m, in [0;36mPortalClientBase.__init__[0;34m(self, address, username, password, verify, show_motd, information_endpoint)[0m
-[1;32m    153[0m     [38;5;28mself[39m[38;5;241m.[39m_username [38;5;241m=[39m username
-[1;32m    154[0m     [38;5;28mself[39m[38;5;241m.[39m_password [38;5;241m=[39m password
-[0;32m--> 155[0m     [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_get_JWT_token[49m[43m([49m[43m)[49m
-[1;32m    156[0m [38;5;28;01melse[39;00m:
-[1;32m    157[0m     [38;5;28mself[39m[38;5;241m.[39m_username [38;5;241m=[39m [38;5;28;01mNone[39;00m
+[36mFile [39m[32m~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:163[39m, in [36mPortalClientBase.__init__[39m[34m(self, address, username, password, verify, show_motd, information_endpoint)[39m
+[32m    161[39m     [38;5;28mself[39m._username = username
+[32m    162[39m     [38;5;28mself[39m._password = password
+[32m--> [39m[32m163[39m     [38;5;28;43mself[39;49m[43m.[49m[43m_get_JWT_token[49m[43m([49m[43m)[49m
+[32m    164[39m [38;5;28;01melse[39;00m:
+[32m    165[39m     [38;5;28mself[39m._username = [38;5;28;01mNone[39;00m
 
-File [0;32m~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:318[0m, in [0;36mPortalClientBase._get_JWT_token[0;34m(self)[0m
-[1;32m    316[0m [38;5;28;01mexcept[39;00m:
-[1;32m    317[0m     msg [38;5;241m=[39m ret[38;5;241m.[39mreason
-[0;32m--> 318[0m [38;5;28;01mraise[39;00m AuthenticationFailure(msg)
+[36mFile [39m[32m~/work/QCFractal/QCFractal/qcportal/qcportal/client_base.py:392[39m, in [36mPortalClientBase._get_JWT_token[39m[34m(self)[39m
+[32m    390[39m [38;5;28;01mexcept[39;00m:
+[32m    391[39m     msg = ret.reason
+[32m--> [39m[32m392[39m [38;5;28;01mraise[39;00m AuthenticationFailure(msg)
 
-[0;31mAuthenticationFailure[0m: Username is empty
+[31mAuthenticationFailure[39m: Username is empty
 
