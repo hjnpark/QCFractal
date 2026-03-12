@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=68b739ae" />
   
@@ -42,9 +42,9 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=8fa376ce"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=4c635df1"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -55,7 +55,7 @@
     <link rel="prev" title="QCArchive Quickstart" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.15.7.post2057+g911dd34d" />
+  <meta name="docsearch:version" content="0.15.7.post2103+g4d9d3a3b" />
   </head>
   
   
@@ -489,7 +489,19 @@ To work with the QCArchive demo server, enter <code class="docutils literal notr
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "573d8065700d40afa5b875c0d6d66a5b"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PortalClient(server_name=&#39;MolSSI QCFractal Demo Server&#39;, address=&#39;https://qcademo.molssi.org/&#39;, username=&#39;None&#39;)
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "68a68751e8ce467cb7d99ef74a8a8d3a"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/qcelemental/models/common_models.py:13: FutureWarning: qcelemental.models.common_models should be accessed through qcelemental.models (or qcelemental.models.v1 or .v2 for fixed QCSchema version). The &#39;models.common_models&#39; route will be removed as soon as v0.70.0.
+  warn(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/qcelemental/models/types.py:8: FutureWarning: qcelemental.models.types should be accessed through qcelemental.models (or qcelemental.models.v1 or .v2 for fixed QCSchema version). The &#39;models.types&#39; route will be removed as soon as v0.70.0.
+  warn(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/qcelemental/models/molecule.py:8: FutureWarning: qcelemental.models.molecule should be accessed through qcelemental.models (or qcelemental.models.v1 or .v2 for fixed QCSchema version). The &#39;models.molecule&#39; route will be removed as soon as v0.70.0.
+  warn(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/qcelemental/models/procedures.py:8: FutureWarning: qcelemental.models.procedures should be accessed through qcelemental.models (or qcelemental.models.v1 or .v2 for fixed QCSchema version). The &#39;models.procedures&#39; route will be removed as soon as v0.70.0.
+  warn(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/qcelemental/models/results.py:9: FutureWarning: qcelemental.models.results should be accessed through qcelemental.models (or qcelemental.models.v1 or .v2 for fixed QCSchema version). The &#39;models.results&#39; route will be removed as soon as v0.70.0.
+  warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PortalClient(server_name=&#39;MolSSI QCFractal Demo Server&#39;, address=&#39;https://qcademo.molssi.org/&#39;, username=&#39;None&#39;)
 </pre></div>
 </div>
 </div>
@@ -558,7 +570,9 @@ In the cell below, we print the SCF total energy from our calcuation.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Molecule: H2, Energy: -1.1117197122934774
 Molecule: HO, Energy: -74.36430040801095
-Molecule: H2O, Energy: -74.82586558254185
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Molecule: H2O, Energy: -74.82586558254185
 </pre></div>
 </div>
 </div>
@@ -1155,7 +1169,7 @@ For more information on dataset construction, see the Dataset Quickstart.</p>
  
         
         <p class="sphinx-version">
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br>
         </p>
         
 
